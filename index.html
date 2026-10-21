@@ -1,0 +1,965 @@
+<title>Enseñando a Fabian</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,800&family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+  /* Layout: fixed progress header, warm hero dashboard, tabbed learning surface below.
+     Accent = confident coral; "learned" = fresh teal-green; warm near-white ground. */
+  :root {
+    --bg: #fbf6f0;
+    --surface: #ffffff;
+    --surface-2: #fdf1e8;
+    --ink: #221b17;
+    --ink-soft: #6f6258;
+    --line: #ece0d4;
+    --coral: #ff5a3c;
+    --coral-deep: #e23e22;
+    --teal: #0f9d80;
+    --teal-soft: #d6f1ea;
+    --gold: #f6a623;
+    --violet: #6a53d6;
+    --shadow: 0 18px 40px -22px rgba(74,45,30,.5);
+    --shadow-sm: 0 6px 18px -12px rgba(74,45,30,.5);
+    --display: "Fraunces", Georgia, serif;
+    --body: "Figtree", system-ui, sans-serif;
+    --num: "Space Grotesk", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17120f;
+      --surface: #221b16;
+      --surface-2: #2b211a;
+      --ink: #f7efe7;
+      --ink-soft: #b7a797;
+      --line: #392c23;
+      --coral: #ff7357;
+      --coral-deep: #ff5a3c;
+      --teal: #2cc0a0;
+      --teal-soft: #123a33;
+      --gold: #ffbb4d;
+      --violet: #9d8af0;
+      --shadow: 0 18px 44px -20px rgba(0,0,0,.75);
+      --shadow-sm: 0 8px 20px -14px rgba(0,0,0,.8);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17120f;
+    --surface: #221b16;
+    --surface-2: #2b211a;
+    --ink: #f7efe7;
+    --ink-soft: #b7a797;
+    --line: #392c23;
+    --coral: #ff7357;
+    --coral-deep: #ff5a3c;
+    --teal: #2cc0a0;
+    --teal-soft: #123a33;
+    --gold: #ffbb4d;
+    --violet: #9d8af0;
+    --shadow: 0 18px 44px -20px rgba(0,0,0,.75);
+    --shadow-sm: 0 8px 20px -14px rgba(0,0,0,.8);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--body); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  h1,h2,h3 { font-family: var(--display); font-weight: 600; line-height: 1.08; text-wrap: balance; margin: 0; }
+  .num { font-family: var(--num); font-variant-numeric: tabular-nums; }
+
+  .wrap { max-width: 1040px; margin: 0 auto; padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); }
+
+  /* Sticky header */
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--surface); }
+  header.bar {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+    background: color-mix(in srgb, var(--surface) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar-in { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding-block: 12px; }
+  .brand { display: flex; align-items: center; gap: 11px; min-width: 0; }
+  .logo {
+    width: 40px; height: 40px; flex: none; border-radius: 13px;
+    background: linear-gradient(140deg, var(--coral), var(--gold));
+    display: grid; place-items: center; color: #fff; font-family: var(--display); font-weight: 800; font-size: 21px;
+    box-shadow: var(--shadow-sm);
+  }
+  .brand b { font-family: var(--display); font-weight: 600; font-size: clamp(16px, 4.4vw, 20px); letter-spacing: -.01em; white-space: nowrap; }
+  .brand small { display: block; font-size: 11px; color: var(--ink-soft); letter-spacing: .14em; text-transform: uppercase; }
+  .lvl-badge {
+    display: flex; align-items: center; gap: 9px; background: var(--surface-2); border: 1px solid var(--line);
+    padding: 7px 13px 7px 9px; border-radius: 999px; flex: none;
+  }
+  .lvl-ring { width: 30px; height: 30px; flex: none; }
+  .lvl-badge .lv-name { font-size: 12.5px; font-weight: 700; line-height: 1.1; }
+  .lvl-badge .lv-sub { font-size: 10.5px; color: var(--ink-soft); }
+  .ghost-btn { background: none; border: 1px solid var(--line); color: var(--ink-soft); width: 38px; height: 38px; border-radius: 11px; cursor: pointer; font-size: 17px; flex: none; }
+  .ghost-btn:hover { color: var(--ink); border-color: var(--coral); }
+
+  /* Hero */
+  .hero { padding-top: clamp(26px, 6vw, 48px); padding-bottom: 8px; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: var(--coral-deep); background: color-mix(in srgb, var(--coral) 14%, transparent); padding: 6px 13px; border-radius: 999px; }
+  .hero h1 { font-size: clamp(34px, 8.5vw, 62px); font-weight: 800; letter-spacing: -.02em; margin: 18px 0 14px; }
+  .hero h1 .hl { color: var(--coral); font-style: italic; }
+  .hero p.lead { font-size: clamp(15px, 3.6vw, 19px); color: var(--ink-soft); max-width: 46ch; margin: 0; }
+  .greet { font-size: 14px; color: var(--teal); font-weight: 700; margin-bottom: 4px; }
+
+  /* Stats row */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 26px; }
+  .stat { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 15px 16px; box-shadow: var(--shadow-sm); }
+  .stat .k { font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); font-weight: 700; display: flex; align-items: center; gap: 6px; }
+  .stat .v { font-family: var(--num); font-size: clamp(24px, 6vw, 34px); font-weight: 700; margin-top: 7px; line-height: 1; }
+  .stat .v small { font-size: 14px; color: var(--ink-soft); font-weight: 600; }
+  .stat.accent { background: linear-gradient(145deg, var(--coral), var(--coral-deep)); border-color: transparent; color: #fff; }
+  .stat.accent .k, .stat.accent .v small { color: rgba(255,255,255,.82); }
+
+  /* XP bar */
+  .xp-card { margin-top: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px 18px; box-shadow: var(--shadow-sm); }
+  .xp-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-size: 13px; }
+  .xp-head b { font-family: var(--num); font-size: 15px; }
+  .xp-head .goal { color: var(--ink-soft); }
+  .xp-track { height: 14px; border-radius: 999px; background: var(--surface-2); margin-top: 11px; overflow: hidden; border: 1px solid var(--line); }
+  .xp-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--gold), var(--coral)); width: 0; transition: width .9s cubic-bezier(.2,.9,.3,1); }
+  .xp-next { margin-top: 9px; font-size: 12.5px; color: var(--ink-soft); }
+
+  /* Tabs */
+  nav.tabs { display: flex; gap: 6px; margin: 30px 0 18px; background: var(--surface-2); border: 1px solid var(--line); padding: 6px; border-radius: 15px; position: relative; }
+  nav.tabs button { flex: 1; border: none; background: none; cursor: pointer; font-family: var(--body); font-weight: 700; font-size: clamp(12.5px,3.4vw,14.5px); color: var(--ink-soft); padding: 11px 6px; border-radius: 10px; display: flex; align-items: center; justify-content: center; gap: 7px; transition: color .2s; }
+  nav.tabs button .ic { font-size: 16px; }
+  nav.tabs button[aria-selected="true"] { background: var(--surface); color: var(--ink); box-shadow: var(--shadow-sm); }
+  nav.tabs button .lbl { }
+  @media (max-width: 460px){ nav.tabs button .lbl { display:none; } nav.tabs button { font-size: 20px; } }
+
+  section.panel { padding-bottom: 60px; }
+  .panel-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+  .panel-head h2 { font-size: clamp(22px, 5.5vw, 30px); font-weight: 600; letter-spacing: -.01em; }
+  .panel-head p { margin: 4px 0 0; color: var(--ink-soft); font-size: 14px; }
+
+  /* Flashcard */
+  .deck-meta { display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-size:13px; color:var(--ink-soft); margin-bottom:14px; }
+  .pill { display:inline-flex; align-items:center; gap:6px; padding:5px 11px; border-radius:999px; font-weight:700; font-size:12px; border:1px solid var(--line); background:var(--surface); }
+  .pill.cat { color: var(--violet); }
+  .pill.done { color: var(--teal); background: var(--teal-soft); border-color: transparent; }
+
+  .card-scene { perspective: 1400px; }
+  .flashcard {
+    position: relative; width: 100%; min-height: 360px; cursor: pointer;
+    transform-style: preserve-3d; transition: transform .55s cubic-bezier(.3,.9,.3,1);
+  }
+  .flashcard.flipped { transform: rotateY(180deg); }
+  .face {
+    position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    border-radius: 26px; padding: 30px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+    border: 1px solid var(--line); box-shadow: var(--shadow);
+  }
+  .face.front { background: var(--surface); }
+  .face.back { background: linear-gradient(160deg, var(--surface-2), var(--surface)); transform: rotateY(180deg); }
+  .flashcard .word { font-family: var(--display); font-weight: 600; font-size: clamp(36px, 10vw, 58px); letter-spacing: -.02em; }
+  .flashcard .ipa { font-family: var(--num); color: var(--coral); margin-top: 6px; font-size: clamp(15px,4vw,19px); }
+  .flashcard .cat-tag { position: absolute; top: 18px; left: 18px; }
+  .flashcard .flip-hint { position: absolute; bottom: 18px; font-size: 12.5px; color: var(--ink-soft); display:flex; align-items:center; gap:6px; }
+  .flashcard .es { font-family: var(--display); font-weight: 600; font-size: clamp(30px,8vw,46px); color: var(--teal); }
+  .flashcard .example { margin-top: 18px; max-width: 34ch; font-size: clamp(14px,3.6vw,16px); }
+  .flashcard .example .en { font-weight: 600; }
+  .flashcard .example .tr { color: var(--ink-soft); font-style: italic; font-size: .92em; margin-top: 4px; }
+  .face-tools { position:absolute; top:16px; right:16px; display:flex; gap:8px; z-index:2; }
+  .speak { width:40px; height:40px; border-radius:12px; border:1px solid var(--line); background:var(--surface); cursor:pointer; font-size:18px; color:var(--ink); display:grid; place-items:center; }
+  .speak:hover { border-color: var(--coral); color: var(--coral); }
+  .speak.mic.listening { background:var(--coral); color:#fff; border-color:transparent; animation:micpulse 1s ease-in-out infinite; }
+  @keyframes micpulse { 0%,100%{ box-shadow:0 0 0 0 color-mix(in srgb,var(--coral) 55%, transparent);} 50%{ box-shadow:0 0 0 11px transparent;} }
+  .sp-read { margin-top:13px; font-size:clamp(13.5px,3.6vw,16px); color:var(--ink-soft); }
+  .sp-read b { color:var(--ink); font-family:var(--num); background:var(--surface-2); padding:3px 11px; border-radius:9px; border:1px solid var(--line); margin-left:4px; }
+  .mic-feedback { margin-top:16px; font-size:14px; font-weight:600; max-width:32ch; padding:11px 15px; border-radius:13px; border:1px solid var(--line); background:var(--surface-2); line-height:1.4; }
+  .mic-feedback.ok { color:var(--teal); background:var(--teal-soft); border-color:transparent; }
+  .mic-feedback.near { color:var(--gold); }
+  .mic-feedback.bad { color:var(--coral-deep); }
+  .mic-feedback .heard { display:block; font-weight:500; color:var(--ink-soft); font-size:12.5px; margin-top:4px; }
+
+  .deck-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
+  .btn { font-family: var(--body); font-weight: 700; font-size: 15px; border-radius: 15px; padding: 15px 16px; cursor: pointer; border: 1px solid transparent; display:flex; align-items:center; justify-content:center; gap:9px; transition: transform .12s, box-shadow .2s; }
+  .btn:active { transform: translateY(1px); }
+  .btn.learn { background: var(--teal); color: #fff; box-shadow: 0 10px 22px -14px var(--teal); }
+  .btn.again { background: var(--surface); color: var(--ink); border-color: var(--line); }
+  .btn.again:hover { border-color: var(--coral); }
+  .btn.wide { grid-column: 1 / -1; }
+  .btn.ghost { background: var(--surface); color: var(--ink-soft); border-color: var(--line); }
+  .mini-progress { text-align:center; margin-top:14px; font-size:13px; color:var(--ink-soft); }
+
+  /* Levels list */
+  .levels { display: grid; gap: 12px; }
+  .lvl-row { display:flex; align-items:center; gap:14px; background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:14px 16px; box-shadow:var(--shadow-sm); }
+  .lvl-row .dot { width:46px;height:46px;flex:none;border-radius:14px;display:grid;place-items:center;font-size:22px; background:var(--surface-2); }
+  .lvl-row.cur { border-color: var(--coral); background: linear-gradient(120deg, color-mix(in srgb,var(--coral) 8%, var(--surface)), var(--surface)); }
+  .lvl-row.cur .dot { background: var(--coral); }
+  .lvl-row .info { flex:1; min-width:0; }
+  .lvl-row .info b { font-size:15px; }
+  .lvl-row .info span { display:block; font-size:12.5px; color:var(--ink-soft); }
+  .lvl-row .info .trk { height:7px; border-radius:999px; background:var(--surface-2); margin-top:7px; overflow:hidden; border:1px solid var(--line); }
+  .lvl-row .info .trk i { display:block; height:100%; background:var(--teal); border-radius:999px; }
+  .lvl-row .count { font-family:var(--num); font-weight:700; font-size:14px; color:var(--ink-soft); flex:none; }
+  .locked { opacity: .55; }
+
+  /* Quiz */
+  .quiz-card { background:var(--surface); border:1px solid var(--line); border-radius:22px; padding:clamp(20px,5vw,30px); box-shadow:var(--shadow); }
+  .quiz-q { text-align:center; margin-bottom:22px; }
+  .quiz-q .ask { font-size:14px; color:var(--ink-soft); }
+  .quiz-q .word { font-family:var(--display); font-weight:600; font-size:clamp(34px,9vw,52px); margin-top:8px; }
+  .quiz-q .ipa { font-family:var(--num); color:var(--coral); font-size:16px; margin-top:4px; }
+  .opts { display:grid; gap:11px; }
+  .opt { text-align:left; background:var(--surface-2); border:1.5px solid var(--line); border-radius:14px; padding:15px 17px; cursor:pointer; font-family:var(--body); font-size:16px; font-weight:600; color:var(--ink); display:flex; align-items:center; gap:12px; transition:border-color .15s, background .15s; }
+  .opt .key { width:26px;height:26px;flex:none;border-radius:8px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:13px;font-family:var(--num);font-weight:700;color:var(--ink-soft); }
+  .opt:hover:not(:disabled) { border-color: var(--coral); }
+  .opt.correct { border-color: var(--teal); background: var(--teal-soft); }
+  .opt.correct .key { background: var(--teal); color:#fff; border-color:transparent; }
+  .opt.wrong { border-color: var(--coral-deep); background: color-mix(in srgb, var(--coral) 12%, transparent); }
+  .opt:disabled { cursor: default; }
+  .quiz-foot { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:20px; }
+  .quiz-score { font-size:13px; color:var(--ink-soft); font-weight:600; }
+  .quiz-score b { color: var(--teal); font-family:var(--num); }
+
+  /* Words gallery */
+  .filter-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+  .chip { border:1px solid var(--line); background:var(--surface); color:var(--ink-soft); padding:8px 14px; border-radius:999px; font-weight:700; font-size:13px; cursor:pointer; }
+  .chip[aria-pressed="true"] { background:var(--ink); color:var(--bg); border-color:var(--ink); }
+  .word-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; }
+  .wcard { background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:15px; box-shadow:var(--shadow-sm); position:relative; overflow:hidden; }
+  .wcard.learned { border-color: var(--teal); }
+  .wcard .em { font-size:22px; }
+  .wcard .en { font-family:var(--display); font-weight:600; font-size:19px; margin-top:6px; letter-spacing:-.01em; }
+  .wcard .es { color:var(--ink-soft); font-size:13.5px; }
+  .wcard .tick { position:absolute; top:12px; right:12px; color:var(--teal); font-size:16px; }
+  .wcard.locked-word .en, .wcard.locked-word .es { filter: blur(0); }
+
+  .empty { text-align:center; color:var(--ink-soft); padding:40px 10px; }
+  .empty .big { font-size:40px; }
+
+  /* Toast / levelup */
+  #toast { position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(120%); background:var(--ink); color:var(--bg); padding:13px 20px; border-radius:14px; font-weight:700; font-size:14px; z-index:60; box-shadow:var(--shadow); transition:transform .4s cubic-bezier(.2,.9,.3,1); display:flex; align-items:center; gap:10px; max-width:90vw; }
+  #toast.show { transform:translateX(-50%) translateY(0); }
+  #confetti { position:fixed; inset:0; pointer-events:none; z-index:55; }
+
+  footer { border-top:1px solid var(--line); padding-block:26px 40px; color:var(--ink-soft); font-size:13px; text-align:center; }
+  footer button { background:none;border:none;color:var(--coral-deep);cursor:pointer;font:inherit;text-decoration:underline; }
+
+  @media (prefers-reduced-motion: reduce){ *{ transition:none !important; animation:none !important; } }
+  :focus-visible { outline: 3px solid var(--coral); outline-offset: 2px; border-radius: 6px; }
+</style>
+
+<header class="bar">
+  <div class="wrap bar-in">
+    <div class="brand">
+      <div class="logo">F</div>
+      <div>
+        <small>Inglés paso a paso</small>
+        <b>Enseñando a Fabian</b>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="lvl-badge">
+        <svg class="lvl-ring" viewBox="0 0 36 36" aria-hidden="true">
+          <circle cx="18" cy="18" r="15" fill="none" stroke="var(--line)" stroke-width="4"/>
+          <circle id="ringFill" cx="18" cy="18" r="15" fill="none" stroke="var(--coral)" stroke-width="4" stroke-linecap="round" stroke-dasharray="94.2" stroke-dashoffset="94.2" transform="rotate(-90 18 18)"/>
+        </svg>
+        <div>
+          <div class="lv-name" id="hdrLvName">Nivel 1</div>
+          <div class="lv-sub" id="hdrLvSub">Explorador</div>
+        </div>
+      </div>
+      <button class="ghost-btn" id="themeBtn" title="Cambiar tema" aria-label="Cambiar tema">◐</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <div class="greet" id="greet">¡Hola de nuevo! 👋</div>
+    <span class="eyebrow">Tu aventura con el inglés</span>
+    <h1>Aprende inglés <span class="hl">una palabra</span> a la vez.</h1>
+    <p class="lead">Tarjetas rápidas, repasos y quizzes. Cada palabra que dominas te da experiencia y te sube de nivel. Pequeños pasos, todos los días.</p>
+
+    <div class="stats">
+      <div class="stat accent">
+        <div class="k">🔥 Racha</div>
+        <div class="v"><span id="stStreak" class="num">0</span> <small>días</small></div>
+      </div>
+      <div class="stat">
+        <div class="k">📚 Palabras</div>
+        <div class="v"><span id="stWords" class="num">0</span></div>
+      </div>
+      <div class="stat">
+        <div class="k">⭐ Experiencia</div>
+        <div class="v"><span id="stXp" class="num">0</span> <small>XP</small></div>
+      </div>
+      <div class="stat">
+        <div class="k">🏅 Nivel</div>
+        <div class="v"><span id="stLevel" class="num">1</span></div>
+      </div>
+    </div>
+
+    <div class="xp-card">
+      <div class="xp-head">
+        <span>Progreso al siguiente nivel</span>
+        <span><b id="xpNow" class="num">0</b> <span class="goal">/ <span id="xpGoal" class="num">100</span> XP</span></span>
+      </div>
+      <div class="xp-track"><div class="xp-fill" id="xpFill"></div></div>
+      <div class="xp-next" id="xpNext">Te faltan 100 XP para ser <b>Aventurero</b>.</div>
+    </div>
+
+    <nav class="tabs" role="tablist" aria-label="Secciones">
+      <button role="tab" data-tab="learn" aria-selected="true"><span class="ic">🎴</span><span class="lbl">Aprender</span></button>
+      <button role="tab" data-tab="quiz" aria-selected="false"><span class="ic">✏️</span><span class="lbl">Quiz</span></button>
+      <button role="tab" data-tab="levels" aria-selected="false"><span class="ic">🧗</span><span class="lbl">Niveles</span></button>
+      <button role="tab" data-tab="words" aria-selected="false"><span class="ic">📖</span><span class="lbl">Palabras</span></button>
+    </nav>
+  </div>
+
+  <div class="wrap">
+    <!-- LEARN -->
+    <section class="panel" id="panel-learn" role="tabpanel">
+      <div class="panel-head">
+        <div>
+          <h2>Tarjetas de hoy</h2>
+          <p>Toca la tarjeta para ver el significado. Marca si ya te la sabes.</p>
+        </div>
+      </div>
+      <div class="deck-meta">
+        <span class="pill cat" id="cardCat">—</span>
+        <span class="pill" id="cardLevel">Nivel A1</span>
+        <span class="pill done" id="cardStatus" hidden>✓ Ya la sabes</span>
+      </div>
+      <div class="card-scene">
+        <div class="flashcard" id="flashcard" tabindex="0" role="button" aria-label="Tarjeta de vocabulario, toca para girar">
+          <div class="face front">
+            <span class="pill cat cat-tag" id="frontCat">—</span>
+            <div class="face-tools">
+              <button class="speak" id="speakFront" title="Escuchar la palabra" aria-label="Escuchar pronunciación">🔊</button>
+              <button class="speak mic" id="micBtn" title="Practicar con tu voz" aria-label="Practicar pronunciación con tu voz">🎤</button>
+            </div>
+            <div class="word" id="cardWord">—</div>
+            <div class="ipa" id="cardIpa"></div>
+            <div class="sp-read" id="cardSp"></div>
+            <div class="mic-feedback" id="micFeedback" hidden></div>
+            <div class="flip-hint">↻ toca para ver el significado</div>
+          </div>
+          <div class="face back">
+            <div class="es" id="cardEs">—</div>
+            <div class="example" id="cardExample"></div>
+            <div class="flip-hint">↻ toca para volver</div>
+          </div>
+        </div>
+      </div>
+      <div class="deck-actions">
+        <button class="btn again" id="btnAgain">↻ Practicar más</button>
+        <button class="btn learn" id="btnKnow">✓ Ya la sé</button>
+      </div>
+      <div class="mini-progress" id="deckMini">—</div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="panel" id="panel-quiz" role="tabpanel" hidden>
+      <div class="panel-head">
+        <div>
+          <h2>Pon a prueba tu inglés</h2>
+          <p>Elige la traducción correcta. Cada acierto suma XP extra.</p>
+        </div>
+      </div>
+      <div id="quizBody"></div>
+    </section>
+
+    <!-- LEVELS -->
+    <section class="panel" id="panel-levels" role="tabpanel" hidden>
+      <div class="panel-head">
+        <div>
+          <h2>Tu camino</h2>
+          <p>Sube de nivel aprendiendo palabras. Cada nivel desbloquea más retos.</p>
+        </div>
+      </div>
+      <div class="levels" id="levelsList"></div>
+    </section>
+
+    <!-- WORDS -->
+    <section class="panel" id="panel-words" role="tabpanel" hidden>
+      <div class="panel-head">
+        <div>
+          <h2>Mi vocabulario</h2>
+          <p id="wordsCount">—</p>
+        </div>
+      </div>
+      <div class="filter-row" id="filterRow"></div>
+      <div class="word-grid" id="wordGrid"></div>
+    </section>
+  </div>
+</main>
+
+<footer class="wrap">
+  Hecho con cariño para que Fabian aprenda inglés. Tu progreso se guarda en este navegador.
+  <br><button id="resetBtn">Reiniciar mi progreso</button>
+</footer>
+
+<div id="toast" role="status"></div>
+<canvas id="confetti"></canvas>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- Vocabulary ---------- */
+  var VOCAB = [
+    // A1 — Básico
+    {id:"hello", en:"Hello", es:"Hola", ipa:"/həˈloʊ/", sp:"jelóu", cat:"Saludos", em:"👋", lvl:"A1", ex:"Hello, how are you?", exEs:"Hola, ¿cómo estás?"},
+    {id:"water", en:"Water", es:"Agua", ipa:"/ˈwɔːtər/", sp:"uóter", cat:"Comida", em:"💧", lvl:"A1", ex:"Can I have some water?", exEs:"¿Me das un poco de agua?"},
+    {id:"house", en:"House", es:"Casa", ipa:"/haʊs/", sp:"jáus", cat:"Lugares", em:"🏠", lvl:"A1", ex:"This is my house.", exEs:"Esta es mi casa."},
+    {id:"friend", en:"Friend", es:"Amigo", ipa:"/frend/", sp:"frend", cat:"Personas", em:"🧑‍🤝‍🧑", lvl:"A1", ex:"She is my best friend.", exEs:"Ella es mi mejor amiga."},
+    {id:"food", en:"Food", es:"Comida", ipa:"/fuːd/", sp:"fuud", cat:"Comida", em:"🍽️", lvl:"A1", ex:"The food is delicious.", exEs:"La comida está deliciosa."},
+    {id:"dog", en:"Dog", es:"Perro", ipa:"/dɔːɡ/", sp:"dog", cat:"Animales", em:"🐶", lvl:"A1", ex:"My dog is very friendly.", exEs:"Mi perro es muy amigable."},
+    {id:"day", en:"Day", es:"Día", ipa:"/deɪ/", sp:"déi", cat:"Tiempo", em:"☀️", lvl:"A1", ex:"Have a nice day!", exEs:"¡Que tengas un buen día!"},
+    {id:"love", en:"Love", es:"Amor", ipa:"/lʌv/", sp:"lov", cat:"Sentimientos", em:"❤️", lvl:"A1", ex:"I love this song.", exEs:"Me encanta esta canción."},
+    {id:"book", en:"Book", es:"Libro", ipa:"/bʊk/", sp:"buk", cat:"Objetos", em:"📘", lvl:"A1", ex:"I am reading a book.", exEs:"Estoy leyendo un libro."},
+    {id:"name", en:"Name", es:"Nombre", ipa:"/neɪm/", sp:"néim", cat:"Personas", em:"🏷️", lvl:"A1", ex:"What is your name?", exEs:"¿Cómo te llamas?"},
+    {id:"happy", en:"Happy", es:"Feliz", ipa:"/ˈhæpi/", sp:"jápi", cat:"Sentimientos", em:"😊", lvl:"A1", ex:"I feel happy today.", exEs:"Hoy me siento feliz."},
+    {id:"thanks", en:"Thank you", es:"Gracias", ipa:"/θæŋk juː/", sp:"zénk-iú", cat:"Saludos", em:"🙏", lvl:"A1", ex:"Thank you for your help.", exEs:"Gracias por tu ayuda."},
+
+    // A2 — Elemental
+    {id:"work", en:"Work", es:"Trabajo", ipa:"/wɜːrk/", sp:"uórk", cat:"Rutina", em:"💼", lvl:"A2", ex:"I work from home.", exEs:"Trabajo desde casa."},
+    {id:"city", en:"City", es:"Ciudad", ipa:"/ˈsɪti/", sp:"síti", cat:"Lugares", em:"🏙️", lvl:"A2", ex:"New York is a big city.", exEs:"Nueva York es una ciudad grande."},
+    {id:"money", en:"Money", es:"Dinero", ipa:"/ˈmʌni/", sp:"móni", cat:"Compras", em:"💰", lvl:"A2", ex:"I don't have enough money.", exEs:"No tengo suficiente dinero."},
+    {id:"weather", en:"Weather", es:"Clima", ipa:"/ˈweðər/", sp:"uéder", cat:"Tiempo", em:"🌦️", lvl:"A2", ex:"The weather is nice today.", exEs:"El clima está agradable hoy."},
+    {id:"travel", en:"Travel", es:"Viajar", ipa:"/ˈtrævəl/", sp:"trável", cat:"Rutina", em:"✈️", lvl:"A2", ex:"I love to travel.", exEs:"Me encanta viajar."},
+    {id:"learn", en:"Learn", es:"Aprender", ipa:"/lɜːrn/", sp:"lern", cat:"Rutina", em:"🧠", lvl:"A2", ex:"I want to learn English.", exEs:"Quiero aprender inglés."},
+    {id:"always", en:"Always", es:"Siempre", ipa:"/ˈɔːlweɪz/", sp:"ólueis", cat:"Frecuencia", em:"🔁", lvl:"A2", ex:"She always smiles.", exEs:"Ella siempre sonríe."},
+    {id:"because", en:"Because", es:"Porque", ipa:"/bɪˈkɔːz/", sp:"bicós", cat:"Conectores", em:"🔗", lvl:"A2", ex:"I'm tired because I worked a lot.", exEs:"Estoy cansado porque trabajé mucho."},
+    {id:"morning", en:"Morning", es:"Mañana", ipa:"/ˈmɔːrnɪŋ/", sp:"mórning", cat:"Tiempo", em:"🌅", lvl:"A2", ex:"Good morning, everyone.", exEs:"Buenos días a todos."},
+    {id:"help", en:"Help", es:"Ayudar", ipa:"/help/", sp:"jelp", cat:"Rutina", em:"🤝", lvl:"A2", ex:"Can you help me, please?", exEs:"¿Puedes ayudarme, por favor?"},
+    {id:"buy", en:"Buy", es:"Comprar", ipa:"/baɪ/", sp:"bái", cat:"Compras", em:"🛒", lvl:"A2", ex:"I want to buy a coffee.", exEs:"Quiero comprar un café."},
+    {id:"people", en:"People", es:"Gente", ipa:"/ˈpiːpəl/", sp:"pípol", cat:"Personas", em:"👥", lvl:"A2", ex:"There are many people here.", exEs:"Hay mucha gente aquí."},
+
+    // B1 — Intermedio
+    {id:"although", en:"Although", es:"Aunque", ipa:"/ɔːlˈðoʊ/", sp:"oldóu", cat:"Conectores", em:"🔗", lvl:"B1", ex:"Although it's hard, I keep trying.", exEs:"Aunque es difícil, sigo intentándolo."},
+    {id:"achieve", en:"Achieve", es:"Lograr", ipa:"/əˈtʃiːv/", sp:"achíiv", cat:"Metas", em:"🎯", lvl:"B1", ex:"You can achieve your goals.", exEs:"Puedes lograr tus metas."},
+    {id:"improve", en:"Improve", es:"Mejorar", ipa:"/ɪmˈpruːv/", sp:"imprúuv", cat:"Metas", em:"📈", lvl:"B1", ex:"I want to improve my English.", exEs:"Quiero mejorar mi inglés."},
+    {id:"advice", en:"Advice", es:"Consejo", ipa:"/ədˈvaɪs/", sp:"adváis", cat:"Conversación", em:"💡", lvl:"B1", ex:"Thanks for the advice.", exEs:"Gracias por el consejo."},
+    {id:"meeting", en:"Meeting", es:"Reunión", ipa:"/ˈmiːtɪŋ/", sp:"míiting", cat:"Trabajo", em:"📅", lvl:"B1", ex:"We have a meeting at noon.", exEs:"Tenemos una reunión al mediodía."},
+    {id:"decide", en:"Decide", es:"Decidir", ipa:"/dɪˈsaɪd/", sp:"disáid", cat:"Conversación", em:"🤔", lvl:"B1", ex:"It's hard to decide.", exEs:"Es difícil decidir."},
+    {id:"enough", en:"Enough", es:"Suficiente", ipa:"/ɪˈnʌf/", sp:"ináf", cat:"Cantidad", em:"⚖️", lvl:"B1", ex:"That's enough for today.", exEs:"Es suficiente por hoy."},
+    {id:"remember", en:"Remember", es:"Recordar", ipa:"/rɪˈmembər/", sp:"rimémber", cat:"Conversación", em:"🧩", lvl:"B1", ex:"I can't remember his name.", exEs:"No puedo recordar su nombre."},
+    {id:"careful", en:"Careful", es:"Cuidadoso", ipa:"/ˈkerfəl/", sp:"kérful", cat:"Cualidades", em:"⚠️", lvl:"B1", ex:"Be careful on the road.", exEs:"Ten cuidado en la carretera."},
+    {id:"opportunity", en:"Opportunity", es:"Oportunidad", ipa:"/ˌɑːpərˈtuːnəti/", sp:"oportúuniti", cat:"Metas", em:"🚪", lvl:"B1", ex:"This is a great opportunity.", exEs:"Esta es una gran oportunidad."},
+
+    // B2 — Avanzado
+    {id:"however", en:"However", es:"Sin embargo", ipa:"/haʊˈevər/", sp:"jauéver", cat:"Conectores", em:"🔗", lvl:"B2", ex:"It's expensive; however, it's worth it.", exEs:"Es caro; sin embargo, vale la pena."},
+    {id:"challenge", en:"Challenge", es:"Desafío", ipa:"/ˈtʃælɪndʒ/", sp:"chálench", cat:"Metas", em:"🏔️", lvl:"B2", ex:"Learning a language is a challenge.", exEs:"Aprender un idioma es un desafío."},
+    {id:"confident", en:"Confident", es:"Seguro / Confiado", ipa:"/ˈkɑːnfɪdənt/", sp:"cónfident", cat:"Cualidades", em:"💪", lvl:"B2", ex:"She feels confident speaking English.", exEs:"Ella se siente segura hablando inglés."},
+    {id:"behavior", en:"Behavior", es:"Comportamiento", ipa:"/bɪˈheɪvjər/", sp:"bijéivior", cat:"Conversación", em:"🎭", lvl:"B2", ex:"His behavior surprised everyone.", exEs:"Su comportamiento sorprendió a todos."},
+    {id:"afford", en:"Afford", es:"Permitirse", ipa:"/əˈfɔːrd/", sp:"afórd", cat:"Compras", em:"🏦", lvl:"B2", ex:"I can't afford a new car.", exEs:"No puedo permitirme un coche nuevo."},
+    {id:"reliable", en:"Reliable", es:"Confiable", ipa:"/rɪˈlaɪəbəl/", sp:"riláiabol", cat:"Cualidades", em:"🛡️", lvl:"B2", ex:"He is a reliable friend.", exEs:"Es un amigo confiable."},
+    {id:"achievement", en:"Achievement", es:"Logro", ipa:"/əˈtʃiːvmənt/", sp:"achíivment", cat:"Metas", em:"🏆", lvl:"B2", ex:"Speaking fluently is an achievement.", exEs:"Hablar con fluidez es un logro."},
+    {id:"meanwhile", en:"Meanwhile", es:"Mientras tanto", ipa:"/ˈmiːnwaɪl/", sp:"míinuail", cat:"Conectores", em:"⏳", lvl:"B2", ex:"Meanwhile, I'll make coffee.", exEs:"Mientras tanto, haré café."}
+  ];
+
+  var LEVELS = [
+    {n:1, name:"Explorador", icon:"🌱", xp:0},
+    {n:2, name:"Aventurero", icon:"🧭", xp:100},
+    {n:3, name:"Viajero", icon:"🎒", xp:240},
+    {n:4, name:"Conversador", icon:"💬", xp:420},
+    {n:5, name:"Narrador", icon:"📣", xp:640},
+    {n:6, name:"Experto", icon:"🦉", xp:900},
+    {n:7, name:"Maestro", icon:"🏆", xp:1200}
+  ];
+  var XP_PER_WORD = 15;
+  var XP_PER_QUIZ = 8;
+
+  /* ---------- State ---------- */
+  var KEY = "ensenando-a-fabian-v1";
+  var state = { xp:0, learned:{}, streak:0, lastDay:null, quizRight:0, quizTotal:0, spoken:{} };
+
+  function load(){
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (raw) { var p = JSON.parse(raw); if (p && typeof p === "object") state = Object.assign(state, p); }
+    } catch(e){}
+    if (!state.learned || typeof state.learned !== "object") state.learned = {};
+    if (!state.spoken || typeof state.spoken !== "object") state.spoken = {};
+  }
+  function save(){
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){}
+  }
+  function dayStr(d){ d = d || new Date(); return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); }
+  function updateStreak(){
+    var today = dayStr();
+    if (state.lastDay === today) return;
+    var y = new Date(); y.setDate(y.getDate()-1);
+    if (state.lastDay === dayStr(y)) state.streak = (state.streak||0)+1;
+    else state.streak = 1;
+    state.lastDay = today;
+    save();
+  }
+
+  /* ---------- Derived ---------- */
+  function learnedCount(){ return Object.keys(state.learned).filter(function(k){return state.learned[k];}).length; }
+  function levelInfo(){
+    var xp = state.xp, cur = LEVELS[0], next = null;
+    for (var i=0;i<LEVELS.length;i++){
+      if (xp >= LEVELS[i].xp) cur = LEVELS[i];
+    }
+    for (var j=0;j<LEVELS.length;j++){ if (LEVELS[j].xp > xp){ next = LEVELS[j]; break; } }
+    return {cur:cur, next:next};
+  }
+
+  /* ---------- Elements ---------- */
+  var $ = function(id){ return document.getElementById(id); };
+
+  /* ---------- Render top dashboard ---------- */
+  function renderDash(){
+    var li = levelInfo();
+    $("stStreak").textContent = state.streak || 0;
+    $("stWords").textContent = learnedCount();
+    $("stXp").textContent = state.xp;
+    $("stLevel").textContent = li.cur.n;
+    $("hdrLvName").textContent = "Nivel " + li.cur.n;
+    $("hdrLvSub").textContent = li.cur.name;
+
+    var base = li.cur.xp;
+    var goal = li.next ? li.next.xp : li.cur.xp;
+    var span = li.next ? (goal - base) : 1;
+    var into = state.xp - base;
+    var pct = li.next ? Math.max(0, Math.min(1, into/span)) : 1;
+
+    $("xpNow").textContent = li.next ? into : "MAX";
+    $("xpGoal").textContent = li.next ? span : "★";
+    $("xpFill").style.width = (pct*100) + "%";
+    $("xpNext").innerHTML = li.next
+      ? "Te faltan <b>" + (goal - state.xp) + " XP</b> para ser <b>" + li.next.name + "</b>."
+      : "¡Has alcanzado el nivel máximo! Eres todo un <b>Maestro</b> 🏆";
+
+    // ring
+    var circ = 2*Math.PI*15;
+    $("ringFill").setAttribute("stroke-dasharray", circ.toFixed(1));
+    $("ringFill").setAttribute("stroke-dashoffset", (circ*(1-pct)).toFixed(1));
+  }
+
+  /* ---------- Flashcard deck ---------- */
+  var deck = [], deckIdx = 0;
+  function buildDeck(){
+    // Unlocked levels based on progress: show words up to current level + always A1
+    var li = levelInfo();
+    var allowed = { "A1":true, "A2":true };
+    if (li.cur.n >= 2) allowed["B1"] = true;
+    if (li.cur.n >= 4) allowed["B2"] = true;
+    // Prioritize not-yet-learned, then learned (for review)
+    var pool = VOCAB.filter(function(w){ return allowed[w.lvl]; });
+    var fresh = pool.filter(function(w){ return !state.learned[w.id]; });
+    var review = pool.filter(function(w){ return state.learned[w.id]; });
+    shuffle(fresh); shuffle(review);
+    deck = fresh.concat(review);
+    if (!deck.length) deck = pool.slice();
+    deckIdx = 0;
+  }
+  function shuffle(a){ for (var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t; } return a; }
+
+  function renderCard(){
+    if (!deck.length){ buildDeck(); }
+    var w = deck[deckIdx % deck.length];
+    var fc = $("flashcard");
+    fc.classList.remove("flipped");
+    $("cardWord").textContent = w.en;
+    $("cardIpa").textContent = w.ipa;
+    $("cardSp").innerHTML = 'se lee: <b>"' + w.sp + '"</b>';
+    var mf0 = $("micFeedback"); mf0.hidden = true; mf0.className = "mic-feedback"; mf0.innerHTML = "";
+    $("cardEs").textContent = w.es;
+    $("frontCat").textContent = w.em + " " + w.cat;
+    $("cardCat").textContent = w.em + " " + w.cat;
+    $("cardLevel").textContent = "Nivel " + w.lvl;
+    $("cardExample").innerHTML = '<div class="en">"' + w.ex + '"</div><div class="tr">' + w.exEs + '</div>';
+    var known = !!state.learned[w.id];
+    $("cardStatus").hidden = !known;
+    $("btnKnow").textContent = known ? "✓ Repasada" : "✓ Ya la sé";
+    var li = levelInfo();
+    var allowed = { "A1":true, "A2":true }; if (li.cur.n>=2) allowed["B1"]=true; if (li.cur.n>=4) allowed["B2"]=true;
+    var pool = VOCAB.filter(function(x){ return allowed[x.lvl]; });
+    var learnedPool = pool.filter(function(x){ return state.learned[x.id]; }).length;
+    $("deckMini").innerHTML = "Dominas <b>" + learnedPool + "</b> de <b>" + pool.length + "</b> palabras desbloqueadas · toca 🔊 para escuchar";
+    fc._word = w;
+  }
+  function nextCard(){ deckIdx++; renderCard(); }
+
+  function markKnown(){
+    var w = $("flashcard")._word;
+    if (!w) return;
+    if (!state.learned[w.id]){
+      state.learned[w.id] = true;
+      addXp(XP_PER_WORD, "¡+"+XP_PER_WORD+" XP! Aprendiste \""+w.en+"\"");
+    } else {
+      toast("👍 Repaso guardado");
+    }
+    save();
+    renderDash();
+    setTimeout(nextCard, 260);
+  }
+
+  function speak(text){
+    try {
+      if (!("speechSynthesis" in window)) { toast("Tu navegador no puede reproducir audio"); return; }
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US"; u.rate = .92;
+      window.speechSynthesis.speak(u);
+    } catch(e){}
+  }
+
+  /* ---------- Microphone: pronunciation check ---------- */
+  var recog = null, recognizing = false;
+  function escHtml(s){ return (s||"").replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+  function normWord(s){ return (s||"").toLowerCase().replace(/[^a-z\s]/g,"").replace(/\s+/g," ").trim(); }
+  function levenshtein(a,b){
+    a=a||""; b=b||""; var m=a.length, n=b.length;
+    if (!m) return n; if (!n) return m;
+    var prev=[], cur=[], i, j;
+    for (j=0;j<=n;j++) prev[j]=j;
+    for (i=1;i<=m;i++){
+      cur[0]=i;
+      for (j=1;j<=n;j++){ var cost = a.charAt(i-1)===b.charAt(j-1)?0:1; cur[j]=Math.min(cur[j-1]+1, prev[j]+1, prev[j-1]+cost); }
+      for (j=0;j<=n;j++) prev[j]=cur[j];
+    }
+    return prev[n];
+  }
+  function similarity(a,b){ if (!a && !b) return 1; var mx=Math.max(a.length,b.length); return mx? (1 - levenshtein(a,b)/mx) : 0; }
+  function showMic(kind, html){ var mf=$("micFeedback"); mf.className="mic-feedback"+(kind?(" "+kind):""); mf.innerHTML=html; mf.hidden=false; }
+
+  function startMic(){
+    var w = $("flashcard")._word; if (!w) return;
+    var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    var btn = $("micBtn");
+    if (!SR){
+      showMic("bad", "🎤 Este navegador no deja usar el micrófono aquí.<span class=\"heard\">Abre el archivo <b>ensenando-a-fabian.html</b> en Google Chrome para practicar tu voz.</span>");
+      return;
+    }
+    if (recognizing){ try { recog.stop(); } catch(e){} return; }
+    try { if (window.speechSynthesis) window.speechSynthesis.cancel(); } catch(e){}
+    try { recog = new SR(); } catch(e){ showMic("bad","No pude iniciar el micrófono 🎤"); return; }
+    recog.lang = "en-US"; recog.interimResults = false; recog.maxAlternatives = 5;
+    recognizing = true; btn.classList.add("listening");
+    showMic("", '🎤 Escuchando… di: <b>"' + escHtml(w.en) + '"</b>');
+    recog.onresult = function(ev){
+      var target = normWord(w.en), best = 0, heard = "";
+      var alts = ev.results[0];
+      for (var i=0;i<alts.length;i++){
+        var raw = alts[i].transcript;
+        if (!heard) heard = raw;
+        var t = normWord(raw);
+        var s = (t === target) ? 1 : similarity(target, t);
+        if (s > best) best = s;
+      }
+      evalPron(w, best, heard);
+    };
+    recog.onerror = function(ev){
+      recognizing = false; btn.classList.remove("listening");
+      if (ev.error === "no-speech") showMic("bad", "🤫 No te escuché. Acércate al micro e inténtalo otra vez.");
+      else if (ev.error === "not-allowed" || ev.error === "service-not-allowed") showMic("bad", "🎤 Necesito permiso para el micrófono.<span class=\"heard\">Dale <b>Permitir</b>, o abre el archivo en Google Chrome.</span>");
+      else if (ev.error === "aborted") { /* user stopped */ }
+      else showMic("bad", "No pude grabar. Inténtalo de nuevo 🎤");
+    };
+    recog.onend = function(){ recognizing = false; btn.classList.remove("listening"); };
+    try { recog.start(); }
+    catch(e){ recognizing = false; btn.classList.remove("listening"); showMic("bad","No pude iniciar el micrófono 🎤"); }
+  }
+
+  function evalPron(w, score, heard){
+    if (score >= 0.82){
+      showMic("ok", "✓ ¡Muy bien dicho! Sonó casi como un nativo 🎉");
+      if (!state.spoken) state.spoken = {};
+      if (!state.spoken[w.id]){ state.spoken[w.id] = true; addXp(5, "🎤 +5 XP por tu pronunciación"); }
+    } else if (score >= 0.5){
+      showMic("near", '👍 ¡Casi! Escucha el 🔊 y repite.<span class="heard">Escuché: "' + escHtml(heard) + '"</span>');
+    } else {
+      showMic("bad", '🔁 Inténtalo otra vez. Toca 🔊 para oírla primero.<span class="heard">Escuché: "' + escHtml(heard) + '"</span>');
+    }
+  }
+
+  /* ---------- XP + level up ---------- */
+  function addXp(amount, msg){
+    var before = levelInfo().cur.n;
+    state.xp += amount;
+    save();
+    var after = levelInfo().cur.n;
+    renderDash();
+    if (after > before){
+      var nm = levelInfo().cur;
+      levelUp(nm);
+      buildDeck(); // may unlock new words
+    } else if (msg){
+      toast(msg);
+    }
+    renderLevels(); renderWords();
+  }
+
+  function levelUp(lv){
+    toast("🎉 ¡Subiste al Nivel " + lv.n + ": " + lv.name + "!");
+    confettiBurst();
+  }
+
+  /* ---------- Quiz ---------- */
+  var quizWord = null, quizAnswered = false;
+  function unlockedPool(){
+    var li = levelInfo();
+    var allowed = { "A1":true, "A2":true }; if (li.cur.n>=2) allowed["B1"]=true; if (li.cur.n>=4) allowed["B2"]=true;
+    return VOCAB.filter(function(w){ return allowed[w.lvl]; });
+  }
+  function newQuiz(){
+    quizAnswered = false;
+    var pool = unlockedPool();
+    // prefer words that are learned or seen, but any works
+    quizWord = pool[Math.floor(Math.random()*pool.length)];
+    var options = [quizWord];
+    var others = shuffle(pool.filter(function(w){ return w.id !== quizWord.id; })).slice(0,3);
+    options = shuffle(options.concat(others));
+    var keys = ["A","B","C","D"];
+    var html = '<div class="quiz-card">'
+      + '<div class="quiz-q"><div class="ask">¿Qué significa en español?</div>'
+      + '<div class="word">'+quizWord.en+'</div><div class="ipa">'+quizWord.ipa+' '+quizWord.em+'</div></div>'
+      + '<div class="opts">';
+    options.forEach(function(o,i){
+      html += '<button class="opt" data-id="'+o.id+'"><span class="key">'+keys[i]+'</span>'+o.es+'</button>';
+    });
+    html += '</div>'
+      + '<div class="quiz-foot"><div class="quiz-score">Aciertos: <b>'+state.quizRight+'</b> / '+state.quizTotal+'</div>'
+      + '<button class="btn ghost" id="quizSkip" style="padding:10px 16px;">Saltar →</button></div>'
+      + '</div>';
+    $("quizBody").innerHTML = html;
+    Array.prototype.forEach.call($("quizBody").querySelectorAll(".opt"), function(btn){
+      btn.addEventListener("click", function(){ answerQuiz(btn); });
+    });
+    $("quizSkip").addEventListener("click", newQuiz);
+  }
+  function answerQuiz(btn){
+    if (quizAnswered) return;
+    quizAnswered = true;
+    var id = btn.getAttribute("data-id");
+    state.quizTotal++;
+    var all = $("quizBody").querySelectorAll(".opt");
+    Array.prototype.forEach.call(all, function(b){
+      b.disabled = true;
+      if (b.getAttribute("data-id") === quizWord.id) b.classList.add("correct");
+    });
+    if (id === quizWord.id){
+      state.quizRight++;
+      save();
+      addXp(XP_PER_QUIZ, "✅ ¡Correcto! +"+XP_PER_QUIZ+" XP");
+    } else {
+      btn.classList.add("wrong");
+      save();
+      toast('❌ Era "' + quizWord.es + '". ¡Sigue practicando!');
+    }
+    var foot = $("quizBody").querySelector(".quiz-foot");
+    if (foot){
+      var s = foot.querySelector(".quiz-score");
+      if (s) s.innerHTML = 'Aciertos: <b>'+state.quizRight+'</b> / '+state.quizTotal;
+      var skip = $("quizSkip");
+      if (skip){ skip.textContent = "Siguiente →"; skip.classList.remove("ghost"); skip.classList.add("learn"); }
+    }
+  }
+
+  /* ---------- Levels panel ---------- */
+  function renderLevels(){
+    var li = levelInfo();
+    var html = "";
+    LEVELS.forEach(function(lv, i){
+      var reached = state.xp >= lv.xp;
+      var isCur = lv.n === li.cur.n;
+      var next = LEVELS[i+1];
+      var cls = "lvl-row" + (isCur?" cur":"") + (reached?"":" locked");
+      var pct = 0, label = "";
+      if (next){
+        if (state.xp >= next.xp) pct = 100;
+        else if (state.xp <= lv.xp) pct = isCur?0:(reached?100:0);
+        else pct = Math.round((state.xp-lv.xp)/(next.xp-lv.xp)*100);
+        label = lv.xp + " XP → " + next.xp + " XP";
+      } else {
+        pct = reached?100:0; label = lv.xp + " XP · nivel máximo";
+      }
+      if (!reached) pct = 0;
+      html += '<div class="'+cls+'">'
+        + '<div class="dot">'+lv.icon+'</div>'
+        + '<div class="info"><b>Nivel '+lv.n+' · '+lv.name+'</b><span>'+label+'</span>'
+        + '<div class="trk"><i style="width:'+pct+'%"></i></div></div>'
+        + '<div class="count">'+(reached?(isCur?"Aquí":"✓"):"🔒")+'</div>'
+        + '</div>';
+    });
+    $("levelsList").innerHTML = html;
+  }
+
+  /* ---------- Words panel ---------- */
+  var wordFilter = "all";
+  function renderFilters(){
+    var levelsSet = ["all","A1","A2","B1","B2","learned"];
+    var labels = {all:"Todas", A1:"Nivel A1", A2:"Nivel A2", B1:"Nivel B1", B2:"Nivel B2", learned:"✓ Aprendidas"};
+    var html = "";
+    levelsSet.forEach(function(f){
+      html += '<button class="chip" data-f="'+f+'" aria-pressed="'+(wordFilter===f)+'">'+labels[f]+'</button>';
+    });
+    $("filterRow").innerHTML = html;
+    Array.prototype.forEach.call($("filterRow").querySelectorAll(".chip"), function(c){
+      c.addEventListener("click", function(){ wordFilter = c.getAttribute("data-f"); renderFilters(); renderWords(); });
+    });
+  }
+  function renderWords(){
+    var li = levelInfo();
+    var allowed = { "A1":true, "A2":true }; if (li.cur.n>=2) allowed["B1"]=true; if (li.cur.n>=4) allowed["B2"]=true;
+    var list = VOCAB.filter(function(w){
+      if (wordFilter === "all") return true;
+      if (wordFilter === "learned") return state.learned[w.id];
+      return w.lvl === wordFilter;
+    });
+    $("wordsCount").textContent = "Has aprendido " + learnedCount() + " de " + VOCAB.length + " palabras en total.";
+    if (!list.length){
+      $("wordGrid").innerHTML = '<div class="empty" style="grid-column:1/-1"><div class="big">📭</div>Aún no hay palabras aquí. ¡Ve a Aprender!</div>';
+      return;
+    }
+    var html = "";
+    list.forEach(function(w){
+      var learned = !!state.learned[w.id];
+      var unlocked = allowed[w.lvl];
+      html += '<div class="wcard'+(learned?" learned":"")+'">'
+        + (learned?'<span class="tick">✓</span>':'')
+        + '<div class="em">'+w.em+'</div>'
+        + '<div class="en">'+w.en+'</div>'
+        + '<div class="es">'+w.es+'</div>'
+        + '<div class="es" style="font-size:11px;margin-top:6px;opacity:.7">'+w.lvl+(unlocked?'':' · 🔒')+'</div>'
+        + '</div>';
+    });
+    $("wordGrid").innerHTML = html;
+  }
+
+  /* ---------- Tabs ---------- */
+  function showTab(name){
+    var tabs = document.querySelectorAll('nav.tabs button');
+    Array.prototype.forEach.call(tabs, function(t){ t.setAttribute("aria-selected", t.getAttribute("data-tab")===name); });
+    ["learn","quiz","levels","words"].forEach(function(p){ $("panel-"+p).hidden = (p !== name); });
+    if (name === "quiz" && !quizWord) newQuiz();
+    if (name === "levels") renderLevels();
+    if (name === "words") { renderFilters(); renderWords(); }
+    try { localStorage.setItem(KEY+":tab", name); } catch(e){}
+  }
+
+  /* ---------- Toast ---------- */
+  var toastTimer;
+  function toast(msg){
+    var t = $("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ t.classList.remove("show"); }, 2600);
+  }
+
+  /* ---------- Confetti ---------- */
+  function confettiBurst(){
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var c = $("confetti"), ctx = c.getContext("2d");
+    var dpr = window.devicePixelRatio || 1;
+    c.width = innerWidth*dpr; c.height = innerHeight*dpr; ctx.scale(dpr,dpr);
+    var colors = ["#ff5a3c","#f6a623","#0f9d80","#6a53d6","#ffbb4d"];
+    var parts = [];
+    for (var i=0;i<140;i++){
+      parts.push({ x:innerWidth/2, y:innerHeight/2.6, vx:(Math.random()-.5)*14, vy:Math.random()*-15-4,
+        g:.4+Math.random()*.2, s:5+Math.random()*7, c:colors[i%colors.length], a:1, rot:Math.random()*6, vr:(Math.random()-.5)*.4 });
+    }
+    var frames=0;
+    function tick(){
+      ctx.clearRect(0,0,c.width,c.height);
+      frames++;
+      parts.forEach(function(p){
+        p.vy += p.g; p.x += p.vx; p.y += p.vy; p.rot += p.vr; p.a -= .008;
+        ctx.save(); ctx.globalAlpha=Math.max(0,p.a); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+        ctx.fillStyle=p.c; ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6); ctx.restore();
+      });
+      if (frames < 160) requestAnimationFrame(tick);
+      else ctx.clearRect(0,0,c.width,c.height);
+    }
+    tick();
+  }
+
+  /* ---------- Theme ---------- */
+  function initTheme(){
+    var saved;
+    try { saved = localStorage.getItem(KEY+":theme"); } catch(e){}
+    if (saved) document.documentElement.setAttribute("data-theme", saved);
+    $("themeBtn").addEventListener("click", function(){
+      var cur = document.documentElement.getAttribute("data-theme");
+      var isDark = cur === "dark" || (!cur && window.matchMedia("(prefers-color-scheme: dark)").matches);
+      var nextT = isDark ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", nextT);
+      try { localStorage.setItem(KEY+":theme", nextT); } catch(e){}
+    });
+  }
+
+  /* ---------- Greeting ---------- */
+  function initGreeting(){
+    var h = new Date().getHours();
+    var g = h<12 ? "¡Buenos días" : h<19 ? "¡Buenas tardes" : "¡Buenas noches";
+    var first = learnedCount()===0;
+    $("greet").textContent = (first ? "¡Hola, Fabian! 👋 Empecemos" : g + ", Fabian! 👋");
+  }
+
+  /* ---------- Wire up ---------- */
+  function init(){
+    load();
+    updateStreak();
+    initTheme();
+    initGreeting();
+    buildDeck();
+    renderDash();
+    renderCard();
+
+    $("flashcard").addEventListener("click", function(e){
+      if (e.target.closest(".speak")) return;
+      this.classList.toggle("flipped");
+    });
+    $("flashcard").addEventListener("keydown", function(e){
+      if (e.key===" "||e.key==="Enter"){ e.preventDefault(); this.classList.toggle("flipped"); }
+    });
+    $("speakFront").addEventListener("click", function(e){ e.stopPropagation(); var w=$("flashcard")._word; if(w) speak(w.en); });
+    $("micBtn").addEventListener("click", function(e){ e.stopPropagation(); startMic(); });
+    $("btnKnow").addEventListener("click", markKnown);
+    $("btnAgain").addEventListener("click", function(){ toast("↻ La verás de nuevo pronto"); nextCard(); });
+
+    Array.prototype.forEach.call(document.querySelectorAll('nav.tabs button'), function(t){
+      t.addEventListener("click", function(){ showTab(t.getAttribute("data-tab")); });
+    });
+
+    $("resetBtn").addEventListener("click", function(){
+      if (confirmReset()) return;
+    });
+
+    renderLevels();
+
+    var savedTab;
+    try { savedTab = localStorage.getItem(KEY+":tab"); } catch(e){}
+    showTab(savedTab || "learn");
+
+    window.addEventListener("resize", function(){ var c=$("confetti"); c.width=0; c.height=0; });
+  }
+
+  // confirm() is disabled in artifacts; build our own two-step reset
+  var resetArmed = false, resetTimer;
+  function confirmReset(){
+    if (!resetArmed){
+      resetArmed = true;
+      $("resetBtn").textContent = "¿Seguro? Toca otra vez para borrar todo";
+      resetTimer = setTimeout(function(){ resetArmed=false; $("resetBtn").textContent="Reiniciar mi progreso"; }, 4000);
+      return true;
+    }
+    clearTimeout(resetTimer);
+    try { localStorage.removeItem(KEY); } catch(e){}
+    state = { xp:0, learned:{}, streak:0, lastDay:null, quizRight:0, quizTotal:0, spoken:{} };
+    updateStreak();
+    buildDeck(); renderDash(); renderCard(); renderLevels();
+    quizWord=null; renderFilters(); renderWords();
+    resetArmed=false; $("resetBtn").textContent="Reiniciar mi progreso";
+    toast("🔄 Progreso reiniciado. ¡A empezar de nuevo!");
+    return true;
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+</script>
