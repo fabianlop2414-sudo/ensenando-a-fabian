@@ -129,7 +129,7 @@
   nav.tabs button .ic { font-size: 16px; }
   nav.tabs button[aria-selected="true"] { background: var(--surface); color: var(--ink); box-shadow: var(--shadow-sm); }
   nav.tabs button .lbl { }
-  @media (max-width: 460px){ nav.tabs button .lbl { display:none; } nav.tabs button { font-size: 20px; } }
+  @media (max-width: 580px){ nav.tabs button .lbl { display:none; } nav.tabs button { font-size: 20px; } nav.tabs { gap: 3px; } }
 
   section.panel { padding-bottom: 60px; }
   .panel-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
@@ -242,6 +242,98 @@
   footer { border-top:1px solid var(--line); padding-block:26px 40px; color:var(--ink-soft); font-size:13px; text-align:center; }
   footer button { background:none;border:none;color:var(--coral-deep);cursor:pointer;font:inherit;text-decoration:underline; }
 
+  /* Big emoji visual guide on the flashcard */
+  .card-visual { font-size: clamp(54px, 15vw, 82px); line-height: 1; margin-bottom: 6px; filter: drop-shadow(0 8px 16px rgba(74,45,30,.18)); }
+
+  /* Sounds panel */
+  .sound-groups { display: grid; gap: 14px; }
+  .sgroup { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 16px 18px; box-shadow: var(--shadow-sm); }
+  .sgroup-head { display: flex; align-items: center; gap: 13px; }
+  .sgroup-head .ic { width: 48px; height: 48px; flex: none; border-radius: 15px; background: var(--surface-2); display: grid; place-items: center; font-size: 25px; }
+  .sgroup-head .tt { flex: 1; min-width: 0; }
+  .sgroup-head .tt b { font-family: var(--display); font-weight: 600; font-size: 19px; display: block; letter-spacing: -.01em; }
+  .sgroup-head .tt .snd { font-size: 13px; color: var(--coral-deep); font-weight: 700; }
+  .sgroup .tip { font-size: 13.5px; color: var(--ink-soft); margin: 11px 0 13px; background: var(--surface-2); border-radius: 12px; padding: 10px 13px; line-height: 1.45; }
+  .sgroup .tip b { color: var(--ink); }
+  .sgroup .words { display: flex; flex-wrap: wrap; gap: 8px; }
+  .sword { display: inline-flex; align-items: center; gap: 7px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px 6px 10px; cursor: pointer; font-weight: 600; font-size: 13.5px; color: var(--ink); transition: border-color .15s; }
+  .sword:hover { border-color: var(--coral); }
+  .sword .em { font-size: 15px; }
+  .sword .rd { color: var(--coral-deep); font-family: var(--num); font-size: 12px; }
+  .sword .spk { font-size: 13px; opacity: .6; }
+
+  /* Methods panel */
+  .daily-goal { background: linear-gradient(145deg, var(--coral), var(--coral-deep)); color: #fff; border-radius: 20px; padding: 18px 20px; box-shadow: var(--shadow-sm); margin-bottom: 16px; }
+  .daily-goal .dg-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+  .daily-goal .dg-top b { font-family: var(--display); font-weight: 600; font-size: 18px; }
+  .daily-goal .dg-top .dg-n { font-family: var(--num); font-weight: 700; font-size: 15px; }
+  .daily-goal .dg-track { height: 12px; border-radius: 999px; background: rgba(255,255,255,.28); margin-top: 12px; overflow: hidden; }
+  .daily-goal .dg-fill { height: 100%; border-radius: 999px; background: #fff; width: 0; transition: width .8s cubic-bezier(.2,.9,.3,1); }
+  .daily-goal .dg-msg { font-size: 13px; margin-top: 10px; color: rgba(255,255,255,.9); }
+  .method-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 13px; }
+  .method-card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 17px 18px; box-shadow: var(--shadow-sm); }
+  .method-card .m-ic { font-size: 30px; }
+  .method-card b { font-family: var(--display); font-weight: 600; font-size: 17.5px; display: block; margin-top: 8px; letter-spacing: -.01em; }
+  .method-card .m-what { font-size: 13.5px; color: var(--ink); margin-top: 6px; }
+  .method-card .m-how { font-size: 13px; color: var(--ink-soft); margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); line-height: 1.45; }
+  .method-card .m-how b { display: inline; font-family: var(--body); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--teal); margin: 0 0 2px; }
+
+  /* Grammar panel */
+  .gr-intro { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px 20px; box-shadow: var(--shadow-sm); text-align: center; }
+  .gr-intro h3 { font-size: 20px; }
+  .gr-intro p { font-size: 14px; color: var(--ink-soft); margin: 8px auto 0; max-width: 46ch; }
+  .gr-order { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
+  .gw { font-family: var(--display); font-weight: 600; font-size: clamp(20px,5vw,26px); padding: 8px 18px; border-radius: 13px; border: 2px solid; }
+  .gw.suj { color: var(--violet); border-color: var(--violet); background: color-mix(in srgb, var(--violet) 10%, transparent); }
+  .gw.vrb { color: var(--coral-deep); border-color: var(--coral); background: color-mix(in srgb, var(--coral) 12%, transparent); }
+  .gw.cmp { color: var(--teal); border-color: var(--teal); background: var(--teal-soft); }
+  .gr-order-es { font-size: 13px; color: var(--ink-soft); margin-top: 8px; }
+
+  .gr-why { background: var(--surface-2); border: 1px solid var(--line); border-radius: 16px; padding: 14px 17px; margin-top: 14px; font-size: 13.5px; line-height: 1.5; color: var(--ink); }
+  .gr-why b { color: var(--coral-deep); }
+
+  .tense-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 16px; }
+  .tense-card { background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--tc); border-radius: 18px; padding: 16px 17px; box-shadow: var(--shadow-sm); }
+  .tc-head { display: flex; align-items: center; gap: 11px; }
+  .tc-ic { font-size: 26px; }
+  .tc-head b { font-family: var(--display); font-weight: 600; font-size: 19px; display: block; color: var(--tc); }
+  .tc-tag { font-size: 11.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-soft); }
+  .tc-formula { margin-top: 12px; background: var(--surface-2); border: 1px dashed var(--line); border-radius: 11px; padding: 10px 12px; font-size: 13.5px; text-align: center; }
+  .tc-formula b { color: var(--tc); }
+  .tc-why { font-size: 13px; color: var(--ink-soft); margin-top: 11px; line-height: 1.5; }
+  .tc-why b { color: var(--ink); }
+  .tc-ex { margin-top: 12px; display: grid; gap: 8px; }
+  .gr-ex { display: flex; align-items: flex-start; gap: 9px; background: var(--surface-2); border-radius: 11px; padding: 9px 11px; }
+  .gr-ex .en { font-size: 14px; font-weight: 600; }
+  .gr-ex .en b { color: var(--tc); background: color-mix(in srgb, var(--tc) 14%, transparent); border-radius: 5px; padding: 0 3px; }
+  .gr-ex .tr { font-size: 12.5px; color: var(--ink-soft); font-style: italic; margin-top: 2px; }
+  .gr-say { flex: none; width: 30px; height: 30px; border-radius: 9px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; font-size: 13px; color: var(--ink); }
+  .gr-say:hover { border-color: var(--coral); color: var(--coral); }
+
+  .gr-table-wrap { margin-top: 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px 18px; box-shadow: var(--shadow-sm); overflow: hidden; }
+  .gr-table-wrap h3 { font-size: 18px; }
+  .gr-note { font-size: 12.5px; color: var(--ink-soft); margin: 5px 0 12px; }
+  .gr-note b { color: var(--ink); }
+  .gr-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .gr-table thead th { text-align: left; font-family: var(--body); font-weight: 700; font-size: 12.5px; color: var(--ink-soft); padding: 8px 8px; border-bottom: 2px solid var(--line); white-space: nowrap; }
+  .gr-table tbody th { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); font-weight: 400; }
+  .gr-table tbody th b { font-family: var(--num); font-weight: 700; color: var(--ink); display: block; }
+  .gr-table tbody th span { font-size: 11.5px; color: var(--ink-soft); }
+  .gr-table td { padding: 10px 8px; border-bottom: 1px solid var(--line); font-family: var(--num); font-weight: 600; }
+  .gr-table tbody tr td:nth-child(2){ color: var(--violet); }
+  .gr-table tbody tr td:nth-child(3){ color: var(--teal); }
+  .gr-table tbody tr td:nth-child(4){ color: var(--coral-deep); }
+
+  .gr-ri { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 13px; margin-top: 16px; }
+  .ri-card { border-radius: 16px; padding: 15px 17px; border: 1px solid var(--line); }
+  .ri-card b { font-family: var(--display); font-weight: 600; font-size: 16px; }
+  .ri-card p { font-size: 13px; color: var(--ink-soft); margin: 7px 0 0; }
+  .ri-card .ri-ex { margin-top: 10px; font-family: var(--num); font-size: 13px; font-weight: 600; }
+  .ri-card.ok { background: var(--teal-soft); border-color: transparent; }
+  .ri-card.ok .ri-ex b { color: var(--teal); }
+  .ri-card.warn { background: color-mix(in srgb, var(--gold) 14%, var(--surface)); }
+  .ri-card.warn .ri-ex b { color: var(--coral-deep); }
+
   @media (prefers-reduced-motion: reduce){ *{ transition:none !important; animation:none !important; } }
   :focus-visible { outline: 3px solid var(--coral); outline-offset: 2px; border-radius: 6px; }
 </style>
@@ -308,6 +400,9 @@
 
     <nav class="tabs" role="tablist" aria-label="Secciones">
       <button role="tab" data-tab="learn" aria-selected="true"><span class="ic">🎴</span><span class="lbl">Aprender</span></button>
+      <button role="tab" data-tab="sounds" aria-selected="false"><span class="ic">🔊</span><span class="lbl">Sonidos</span></button>
+      <button role="tab" data-tab="methods" aria-selected="false"><span class="ic">🚀</span><span class="lbl">Métodos</span></button>
+      <button role="tab" data-tab="grammar" aria-selected="false"><span class="ic">📝</span><span class="lbl">Oraciones</span></button>
       <button role="tab" data-tab="quiz" aria-selected="false"><span class="ic">✏️</span><span class="lbl">Quiz</span></button>
       <button role="tab" data-tab="levels" aria-selected="false"><span class="ic">🧗</span><span class="lbl">Niveles</span></button>
       <button role="tab" data-tab="words" aria-selected="false"><span class="ic">📖</span><span class="lbl">Palabras</span></button>
@@ -336,6 +431,7 @@
               <button class="speak" id="speakFront" title="Escuchar la palabra" aria-label="Escuchar pronunciación">🔊</button>
               <button class="speak mic" id="micBtn" title="Practicar con tu voz" aria-label="Practicar pronunciación con tu voz">🎤</button>
             </div>
+            <div class="card-visual" id="cardVisual" aria-hidden="true">🎴</div>
             <div class="word" id="cardWord">—</div>
             <div class="ipa" id="cardIpa"></div>
             <div class="sp-read" id="cardSp"></div>
@@ -354,6 +450,40 @@
         <button class="btn learn" id="btnKnow">✓ Ya la sé</button>
       </div>
       <div class="mini-progress" id="deckMini">—</div>
+    </section>
+
+    <!-- SOUNDS -->
+    <section class="panel" id="panel-sounds" role="tabpanel" hidden>
+      <div class="panel-head">
+        <div>
+          <h2>Suena parecido</h2>
+          <p>Palabras agrupadas por su sonido difícil. Aprende la regla una vez y la usas en muchas palabras.</p>
+        </div>
+      </div>
+      <div class="sound-groups" id="soundGroups"></div>
+    </section>
+
+    <!-- METHODS -->
+    <section class="panel" id="panel-methods" role="tabpanel" hidden>
+      <div class="panel-head">
+        <div>
+          <h2>Trucos para aprender más rápido</h2>
+          <p>Técnicas probadas para que el inglés se te quede de verdad.</p>
+        </div>
+      </div>
+      <div class="daily-goal" id="dailyGoal"></div>
+      <div class="method-grid" id="methodGrid"></div>
+    </section>
+
+    <!-- GRAMMAR -->
+    <section class="panel" id="panel-grammar" role="tabpanel" hidden>
+      <div class="panel-head">
+        <div>
+          <h2>Arma oraciones</h2>
+          <p>Pasado, presente y futuro. Por qué cambian los verbos, explicado fácil.</p>
+        </div>
+      </div>
+      <div id="grammarBody"></div>
     </section>
 
     <!-- QUIZ -->
@@ -454,7 +584,93 @@
     {id:"afford", en:"Afford", es:"Permitirse", ipa:"/əˈfɔːrd/", sp:"afórd", cat:"Compras", em:"🏦", lvl:"B2", ex:"I can't afford a new car.", exEs:"No puedo permitirme un coche nuevo."},
     {id:"reliable", en:"Reliable", es:"Confiable", ipa:"/rɪˈlaɪəbəl/", sp:"riláiabol", cat:"Cualidades", em:"🛡️", lvl:"B2", ex:"He is a reliable friend.", exEs:"Es un amigo confiable."},
     {id:"achievement", en:"Achievement", es:"Logro", ipa:"/əˈtʃiːvmənt/", sp:"achíivment", cat:"Metas", em:"🏆", lvl:"B2", ex:"Speaking fluently is an achievement.", exEs:"Hablar con fluidez es un logro."},
-    {id:"meanwhile", en:"Meanwhile", es:"Mientras tanto", ipa:"/ˈmiːnwaɪl/", sp:"míinuail", cat:"Conectores", em:"⏳", lvl:"B2", ex:"Meanwhile, I'll make coffee.", exEs:"Mientras tanto, haré café."}
+    {id:"meanwhile", en:"Meanwhile", es:"Mientras tanto", ipa:"/ˈmiːnwaɪl/", sp:"míinuail", cat:"Conectores", em:"⏳", lvl:"B2", ex:"Meanwhile, I'll make coffee.", exEs:"Mientras tanto, haré café."},
+
+    // A1 — Más palabras básicas
+    {id:"yes", en:"Yes", es:"Sí", ipa:"/jes/", sp:"yes", cat:"Básico", em:"✅", lvl:"A1", ex:"Yes, I agree.", exEs:"Sí, estoy de acuerdo."},
+    {id:"no", en:"No", es:"No", ipa:"/noʊ/", sp:"nóu", cat:"Básico", em:"❌", lvl:"A1", ex:"No, thank you.", exEs:"No, gracias."},
+    {id:"please", en:"Please", es:"Por favor", ipa:"/pliːz/", sp:"plíis", cat:"Saludos", em:"🙏", lvl:"A1", ex:"Please, sit down.", exEs:"Por favor, siéntate."},
+    {id:"sorry", en:"Sorry", es:"Perdón", ipa:"/ˈsɑːri/", sp:"sóri", cat:"Saludos", em:"😔", lvl:"A1", ex:"I'm sorry for being late.", exEs:"Perdón por llegar tarde."},
+    {id:"good", en:"Good", es:"Bueno", ipa:"/ɡʊd/", sp:"gud", cat:"Cualidades", em:"👍", lvl:"A1", ex:"This is a good idea.", exEs:"Esta es una buena idea."},
+    {id:"bad", en:"Bad", es:"Malo", ipa:"/bæd/", sp:"bad", cat:"Cualidades", em:"👎", lvl:"A1", ex:"It's not a bad plan.", exEs:"No es un mal plan."},
+    {id:"big", en:"Big", es:"Grande", ipa:"/bɪɡ/", sp:"big", cat:"Cualidades", em:"🐘", lvl:"A1", ex:"That's a big house.", exEs:"Esa es una casa grande."},
+    {id:"small", en:"Small", es:"Pequeño", ipa:"/smɔːl/", sp:"smol", cat:"Cualidades", em:"🐭", lvl:"A1", ex:"A small coffee, please.", exEs:"Un café pequeño, por favor."},
+    {id:"man", en:"Man", es:"Hombre", ipa:"/mæn/", sp:"man", cat:"Personas", em:"👨", lvl:"A1", ex:"That man is tall.", exEs:"Ese hombre es alto."},
+    {id:"woman", en:"Woman", es:"Mujer", ipa:"/ˈwʊmən/", sp:"úuman", cat:"Personas", em:"👩", lvl:"A1", ex:"The woman is a doctor.", exEs:"La mujer es doctora."},
+    {id:"mother", en:"Mother", es:"Madre", ipa:"/ˈmʌðər/", sp:"móder", cat:"Familia", em:"👩‍👧", lvl:"A1", ex:"My mother cooks well.", exEs:"Mi madre cocina bien."},
+    {id:"father", en:"Father", es:"Padre", ipa:"/ˈfɑːðər/", sp:"fáder", cat:"Familia", em:"👨‍👧", lvl:"A1", ex:"His father is kind.", exEs:"Su padre es amable."},
+    {id:"brother", en:"Brother", es:"Hermano", ipa:"/ˈbrʌðər/", sp:"bróder", cat:"Familia", em:"👦", lvl:"A1", ex:"I have one brother.", exEs:"Tengo un hermano."},
+    {id:"sister", en:"Sister", es:"Hermana", ipa:"/ˈsɪstər/", sp:"síster", cat:"Familia", em:"👧", lvl:"A1", ex:"My sister sings.", exEs:"Mi hermana canta."},
+    {id:"boy", en:"Boy", es:"Niño", ipa:"/bɔɪ/", sp:"bói", cat:"Personas", em:"🧒", lvl:"A1", ex:"The boy plays soccer.", exEs:"El niño juega fútbol."},
+    {id:"girl", en:"Girl", es:"Niña", ipa:"/ɡɜːrl/", sp:"guérl", cat:"Personas", em:"👧", lvl:"A1", ex:"The girl is reading.", exEs:"La niña está leyendo."},
+    {id:"cat", en:"Cat", es:"Gato", ipa:"/kæt/", sp:"kat", cat:"Animales", em:"🐱", lvl:"A1", ex:"The cat is sleeping.", exEs:"El gato está durmiendo."},
+    {id:"sun", en:"Sun", es:"Sol", ipa:"/sʌn/", sp:"son", cat:"Naturaleza", em:"☀️", lvl:"A1", ex:"The sun is bright.", exEs:"El sol está brillante."},
+    {id:"tree", en:"Tree", es:"Árbol", ipa:"/triː/", sp:"trii", cat:"Naturaleza", em:"🌳", lvl:"A1", ex:"That tree is old.", exEs:"Ese árbol es viejo."},
+    {id:"car", en:"Car", es:"Coche", ipa:"/kɑːr/", sp:"car", cat:"Objetos", em:"🚗", lvl:"A1", ex:"My car is red.", exEs:"Mi coche es rojo."},
+    {id:"school", en:"School", es:"Escuela", ipa:"/skuːl/", sp:"skúul", cat:"Lugares", em:"🏫", lvl:"A1", ex:"I go to school.", exEs:"Voy a la escuela."},
+    {id:"teacher", en:"Teacher", es:"Maestro", ipa:"/ˈtiːtʃər/", sp:"tíicher", cat:"Personas", em:"👩‍🏫", lvl:"A1", ex:"My teacher is nice.", exEs:"Mi maestra es amable."},
+    {id:"table", en:"Table", es:"Mesa", ipa:"/ˈteɪbəl/", sp:"téibol", cat:"Objetos", em:"🪑", lvl:"A1", ex:"The food is on the table.", exEs:"La comida está en la mesa."},
+    {id:"door", en:"Door", es:"Puerta", ipa:"/dɔːr/", sp:"dóor", cat:"Objetos", em:"🚪", lvl:"A1", ex:"Please close the door.", exEs:"Por favor cierra la puerta."},
+    {id:"red", en:"Red", es:"Rojo", ipa:"/red/", sp:"red", cat:"Colores", em:"🔴", lvl:"A1", ex:"I like the red one.", exEs:"Me gusta el rojo."},
+    {id:"blue", en:"Blue", es:"Azul", ipa:"/bluː/", sp:"blúu", cat:"Colores", em:"🔵", lvl:"A1", ex:"The sky is blue.", exEs:"El cielo es azul."},
+    {id:"green", en:"Green", es:"Verde", ipa:"/ɡriːn/", sp:"griin", cat:"Colores", em:"🟢", lvl:"A1", ex:"I have a green shirt.", exEs:"Tengo una camisa verde."},
+    {id:"eat", en:"Eat", es:"Comer", ipa:"/iːt/", sp:"iit", cat:"Verbos", em:"🍴", lvl:"A1", ex:"I eat an apple.", exEs:"Como una manzana."},
+    {id:"drink", en:"Drink", es:"Beber", ipa:"/drɪŋk/", sp:"drink", cat:"Verbos", em:"🥤", lvl:"A1", ex:"I drink water.", exEs:"Bebo agua."},
+    {id:"go", en:"Go", es:"Ir", ipa:"/ɡoʊ/", sp:"góu", cat:"Verbos", em:"🚶", lvl:"A1", ex:"I go home.", exEs:"Voy a casa."},
+    {id:"come", en:"Come", es:"Venir", ipa:"/kʌm/", sp:"kom", cat:"Verbos", em:"👐", lvl:"A1", ex:"Come here, please.", exEs:"Ven aquí, por favor."},
+    {id:"see", en:"See", es:"Ver", ipa:"/siː/", sp:"sii", cat:"Verbos", em:"👀", lvl:"A1", ex:"I see a bird.", exEs:"Veo un pájaro."},
+    {id:"want", en:"Want", es:"Querer", ipa:"/wɑːnt/", sp:"uónt", cat:"Verbos", em:"🙋", lvl:"A1", ex:"I want to learn.", exEs:"Quiero aprender."},
+    {id:"have", en:"Have", es:"Tener", ipa:"/hæv/", sp:"jav", cat:"Verbos", em:"🤲", lvl:"A1", ex:"I have a dog.", exEs:"Tengo un perro."},
+    {id:"time", en:"Time", es:"Tiempo", ipa:"/taɪm/", sp:"táim", cat:"Tiempo", em:"⏰", lvl:"A1", ex:"What time is it?", exEs:"¿Qué hora es?"},
+    {id:"night", en:"Night", es:"Noche", ipa:"/naɪt/", sp:"náit", cat:"Tiempo", em:"🌙", lvl:"A1", ex:"Good night!", exEs:"¡Buenas noches!"},
+    {id:"today", en:"Today", es:"Hoy", ipa:"/təˈdeɪ/", sp:"tudéi", cat:"Tiempo", em:"📆", lvl:"A1", ex:"Today is Monday.", exEs:"Hoy es lunes."},
+    {id:"tomorrow", en:"Tomorrow", es:"Mañana (futuro)", ipa:"/təˈmɑːroʊ/", sp:"tumórou", cat:"Tiempo", em:"➡️", lvl:"A1", ex:"See you tomorrow.", exEs:"Nos vemos mañana."},
+    {id:"yesterday", en:"Yesterday", es:"Ayer", ipa:"/ˈjestərdeɪ/", sp:"yésterdei", cat:"Tiempo", em:"⬅️", lvl:"A1", ex:"I worked yesterday.", exEs:"Trabajé ayer."},
+    {id:"hot", en:"Hot", es:"Caliente", ipa:"/hɑːt/", sp:"jot", cat:"Cualidades", em:"🔥", lvl:"A1", ex:"The coffee is hot.", exEs:"El café está caliente."},
+    {id:"cold", en:"Cold", es:"Frío", ipa:"/koʊld/", sp:"kóuld", cat:"Cualidades", em:"❄️", lvl:"A1", ex:"It's cold today.", exEs:"Hoy hace frío."},
+    {id:"new", en:"New", es:"Nuevo", ipa:"/nuː/", sp:"núu", cat:"Cualidades", em:"🆕", lvl:"A1", ex:"I have a new phone.", exEs:"Tengo un teléfono nuevo."},
+    {id:"old", en:"Old", es:"Viejo", ipa:"/oʊld/", sp:"óuld", cat:"Cualidades", em:"📜", lvl:"A1", ex:"This book is old.", exEs:"Este libro es viejo."},
+
+    // A2 — Más palabras elementales
+    {id:"speak", en:"Speak", es:"Hablar", ipa:"/spiːk/", sp:"spíik", cat:"Verbos", em:"🗣️", lvl:"A2", ex:"I speak a little English.", exEs:"Hablo un poco de inglés."},
+    {id:"read", en:"Read", es:"Leer", ipa:"/riːd/", sp:"riid", cat:"Verbos", em:"📖", lvl:"A2", ex:"I read every night.", exEs:"Leo todas las noches."},
+    {id:"write", en:"Write", es:"Escribir", ipa:"/raɪt/", sp:"ráit", cat:"Verbos", em:"✍️", lvl:"A2", ex:"Write your name here.", exEs:"Escribe tu nombre aquí."},
+    {id:"listen", en:"Listen", es:"Escuchar", ipa:"/ˈlɪsən/", sp:"lísen", cat:"Verbos", em:"👂", lvl:"A2", ex:"Listen to the music.", exEs:"Escucha la música."},
+    {id:"open", en:"Open", es:"Abrir", ipa:"/ˈoʊpən/", sp:"óupen", cat:"Verbos", em:"📂", lvl:"A2", ex:"Open the window.", exEs:"Abre la ventana."},
+    {id:"close", en:"Close", es:"Cerrar", ipa:"/kloʊz/", sp:"klóus", cat:"Verbos", em:"🔒", lvl:"A2", ex:"Close your eyes.", exEs:"Cierra los ojos."},
+    {id:"need", en:"Need", es:"Necesitar", ipa:"/niːd/", sp:"niid", cat:"Verbos", em:"❗", lvl:"A2", ex:"I need some help.", exEs:"Necesito algo de ayuda."},
+    {id:"know", en:"Know", es:"Saber / Conocer", ipa:"/noʊ/", sp:"nóu", cat:"Verbos", em:"🧠", lvl:"A2", ex:"I know the answer.", exEs:"Sé la respuesta."},
+    {id:"think", en:"Think", es:"Pensar", ipa:"/θɪŋk/", sp:"zink", cat:"Verbos", em:"💭", lvl:"A2", ex:"I think you're right.", exEs:"Creo que tienes razón."},
+    {id:"give", en:"Give", es:"Dar", ipa:"/ɡɪv/", sp:"guiv", cat:"Verbos", em:"🎁", lvl:"A2", ex:"Give me a minute.", exEs:"Dame un minuto."},
+    {id:"take", en:"Take", es:"Tomar / Llevar", ipa:"/teɪk/", sp:"téik", cat:"Verbos", em:"✋", lvl:"A2", ex:"Take this umbrella.", exEs:"Toma este paraguas."},
+    {id:"find", en:"Find", es:"Encontrar", ipa:"/faɪnd/", sp:"fáind", cat:"Verbos", em:"🔎", lvl:"A2", ex:"I can't find my keys.", exEs:"No encuentro mis llaves."},
+    {id:"week", en:"Week", es:"Semana", ipa:"/wiːk/", sp:"uíik", cat:"Tiempo", em:"🗓️", lvl:"A2", ex:"See you next week.", exEs:"Nos vemos la próxima semana."},
+    {id:"month", en:"Month", es:"Mes", ipa:"/mʌnθ/", sp:"monz", cat:"Tiempo", em:"📅", lvl:"A2", ex:"This month is busy.", exEs:"Este mes está ocupado."},
+    {id:"year", en:"Year", es:"Año", ipa:"/jɪr/", sp:"yíir", cat:"Tiempo", em:"🎉", lvl:"A2", ex:"Happy new year!", exEs:"¡Feliz año nuevo!"},
+    {id:"family", en:"Family", es:"Familia", ipa:"/ˈfæməli/", sp:"fámili", cat:"Familia", em:"👨‍👩‍👧‍👦", lvl:"A2", ex:"I love my family.", exEs:"Amo a mi familia."},
+    {id:"question", en:"Question", es:"Pregunta", ipa:"/ˈkwestʃən/", sp:"kuéschen", cat:"Conversación", em:"❓", lvl:"A2", ex:"Can I ask a question?", exEs:"¿Puedo hacer una pregunta?"},
+    {id:"answer", en:"Answer", es:"Respuesta", ipa:"/ˈænsər/", sp:"ánser", cat:"Conversación", em:"💬", lvl:"A2", ex:"That's the right answer.", exEs:"Esa es la respuesta correcta."},
+
+    // B1 — Más palabras intermedias
+    {id:"explain", en:"Explain", es:"Explicar", ipa:"/ɪkˈspleɪn/", sp:"ikspléin", cat:"Conversación", em:"🧑‍🏫", lvl:"B1", ex:"Can you explain this?", exEs:"¿Puedes explicar esto?"},
+    {id:"suggest", en:"Suggest", es:"Sugerir", ipa:"/səˈdʒest/", sp:"sodchést", cat:"Conversación", em:"💡", lvl:"B1", ex:"I suggest we rest.", exEs:"Sugiero que descansemos."},
+    {id:"develop", en:"Develop", es:"Desarrollar", ipa:"/dɪˈveləp/", sp:"divélop", cat:"Metas", em:"🌱", lvl:"B1", ex:"You develop skills daily.", exEs:"Desarrollas habilidades a diario."},
+    {id:"increase", en:"Increase", es:"Aumentar", ipa:"/ɪnˈkriːs/", sp:"inkríis", cat:"Cantidad", em:"📈", lvl:"B1", ex:"Prices increase every year.", exEs:"Los precios aumentan cada año."},
+    {id:"reduce", en:"Reduce", es:"Reducir", ipa:"/rɪˈduːs/", sp:"ridúus", cat:"Cantidad", em:"📉", lvl:"B1", ex:"We must reduce costs.", exEs:"Debemos reducir costos."},
+    {id:"experience", en:"Experience", es:"Experiencia", ipa:"/ɪkˈspɪriəns/", sp:"ikspíriens", cat:"Metas", em:"🧳", lvl:"B1", ex:"It was a great experience.", exEs:"Fue una gran experiencia."},
+    {id:"language", en:"Language", es:"Idioma", ipa:"/ˈlæŋɡwɪdʒ/", sp:"lánguich", cat:"Conversación", em:"🌐", lvl:"B1", ex:"English is a useful language.", exEs:"El inglés es un idioma útil."},
+    {id:"mistake", en:"Mistake", es:"Error", ipa:"/mɪˈsteɪk/", sp:"mistéik", cat:"Conversación", em:"🙈", lvl:"B1", ex:"Everyone makes mistakes.", exEs:"Todos cometemos errores."},
+    {id:"several", en:"Several", es:"Varios", ipa:"/ˈsevrəl/", sp:"sévral", cat:"Cantidad", em:"🔢", lvl:"B1", ex:"I have several books.", exEs:"Tengo varios libros."},
+    {id:"knowledge", en:"Knowledge", es:"Conocimiento", ipa:"/ˈnɑːlɪdʒ/", sp:"nólich", cat:"Metas", em:"🎓", lvl:"B1", ex:"Knowledge is power.", exEs:"El conocimiento es poder."},
+
+    // B2 — Más palabras avanzadas
+    {id:"nevertheless", en:"Nevertheless", es:"No obstante", ipa:"/ˌnevərðəˈles/", sp:"neverdelés", cat:"Conectores", em:"🔗", lvl:"B2", ex:"It's hard; nevertheless, I'll try.", exEs:"Es difícil; no obstante, lo intentaré."},
+    {id:"furthermore", en:"Furthermore", es:"Además", ipa:"/ˈfɜːrðərmɔːr/", sp:"férdermor", cat:"Conectores", em:"➕", lvl:"B2", ex:"Furthermore, it's cheaper.", exEs:"Además, es más barato."},
+    {id:"assume", en:"Assume", es:"Suponer", ipa:"/əˈsuːm/", sp:"asúum", cat:"Conversación", em:"🤷", lvl:"B2", ex:"Don't assume the worst.", exEs:"No supongas lo peor."},
+    {id:"overcome", en:"Overcome", es:"Superar", ipa:"/ˌoʊvərˈkʌm/", sp:"ouverkóm", cat:"Metas", em:"🧗", lvl:"B2", ex:"You can overcome fear.", exEs:"Puedes superar el miedo."},
+    {id:"insight", en:"Insight", es:"Perspectiva / Visión", ipa:"/ˈɪnsaɪt/", sp:"ínsait", cat:"Conversación", em:"🔭", lvl:"B2", ex:"Thanks for the insight.", exEs:"Gracias por la perspectiva."},
+    {id:"thorough", en:"Thorough", es:"Minucioso", ipa:"/ˈθɜːroʊ/", sp:"zórou", cat:"Cualidades", em:"🔬", lvl:"B2", ex:"She is very thorough.", exEs:"Ella es muy minuciosa."},
+    {id:"regarding", en:"Regarding", es:"Respecto a", ipa:"/rɪˈɡɑːrdɪŋ/", sp:"rigárding", cat:"Conectores", em:"📌", lvl:"B2", ex:"Regarding your email, yes.", exEs:"Respecto a tu correo, sí."}
   ];
 
   var LEVELS = [
@@ -469,9 +685,90 @@
   var XP_PER_WORD = 15;
   var XP_PER_QUIZ = 8;
 
+  // Quick lookup: id -> word
+  var VMAP = {}; VOCAB.forEach(function(w){ VMAP[w.id] = w; });
+
+  /* ---------- Pronunciation groups ----------
+     Words classified by the sound a Spanish speaker finds tricky, with a rule
+     ("así suena") and a tip for the mouth/tongue. Each lists member word ids. */
+  var SOUNDS = [
+    { id:"th", icon:"👅", title:'La "TH"', sound:'th (soplo con la lengua entre los dientes)',
+      tip:'Saca un poco la lengua entre los dientes y sopla suave. No es "z" ni "d" española.',
+      ids:["thanks","weather","although","however","behavior"] },
+    { id:"h", icon:"🌬️", title:'La "H" = "J" suave', sound:'j (aire por la garganta)',
+      tip:'En inglés la H sí suena: como una "j" suave de "jamón", pero más aireada.',
+      ids:["hello","house","happy","help"] },
+    { id:"ii", icon:"😁", title:'Sonido "II" largo', sound:'ii (sonrisa larga)',
+      tip:'Estira la "i" como sonriendo. Dura más que la "i" española.',
+      ids:["people","meeting","achieve","achievement","meanwhile","city"] },
+    { id:"uu", icon:"😗", title:'Sonido "UU" largo', sound:'uu (labios de beso)',
+      tip:'Junta y adelanta los labios como para dar un beso, y alarga la "u".',
+      ids:["food","improve","opportunity"] },
+    { id:"ei", icon:"🅰️", title:'Sonido "ÉI"', sound:'ei (como en "peine")',
+      tip:'La vocal se desliza de "e" a "i" en un solo golpe.',
+      ids:["day","name","always"] },
+    { id:"au", icon:"😮", title:'Sonido "ÁU"', sound:'au (como en "auto")',
+      tip:'Abre la boca con "a" y ciérrala hacia "u" sin parar.',
+      ids:["house","however"] },
+    { id:"ai", icon:"👋", title:'Sonido "ÁI"', sound:'ai (como en "hay")',
+      tip:'Una "a" clara que se desliza hacia "i". Muy común en inglés.',
+      ids:["buy","advice","decide","reliable"] },
+    { id:"er", icon:"🤫", title:'La "R" ahogada del final', sound:'er (sonido apagado)',
+      tip:'La lengua no toca nada: suena como un gruñido suave "er", no la "rr" española.',
+      ids:["work","learn","water","weather","remember","afford"] }
+  ];
+
+  /* ---------- Fast-learning methods ---------- */
+  var METHODS = [
+    { icon:"🔁", title:"Repetición espaciada", what:"Repasa cada palabra justo cuando estás por olvidarla.",
+      how:"Vuelve a las tarjetas hoy, mañana, en 3 días y en una semana. El quiz y el botón «Repasar» ya lo hacen por ti." },
+    { icon:"🖼️", title:"Asocia con imágenes", what:"Tu cerebro recuerda dibujos mucho mejor que letras.",
+      how:'Mira el emoji grande de cada tarjeta e imagina una escena: para "dog" 🐶 imagina TU perro ladrando la palabra.' },
+    { icon:"🗣️", title:"Habla en voz alta (shadowing)", what:"Escuchar y repetir en voz alta fija el sonido y la memoria.",
+      how:"Toca 🔊 para oír la palabra, luego el 🎤 y dila tú. Imita el ritmo, no solo las letras." },
+    { icon:"🧩", title:"Aprende frases, no palabras sueltas", what:"Una palabra dentro de una frase se recuerda y se usa mejor.",
+      how:'Gira la tarjeta y aprende el ejemplo completo, no solo la traducción.' },
+    { icon:"🎯", title:"5 palabras al día", what:"Poco y constante gana a mucho de golpe y nada después.",
+      how:"Fíjate la meta de 5 palabras nuevas cada día. Mira tu progreso diario aquí abajo." },
+    { icon:"🎧", title:"Sumérgete en inglés", what:"Rodearte del idioma lo vuelve natural, no un examen.",
+      how:"Pon música, series o YouTube en inglés con subtítulos en inglés. Busca las palabras que ya conoces." }
+  ];
+  var DAILY_GOAL = 5;
+
+  /* ---------- Grammar: how to build sentences in each time ---------- */
+  var TENSES = [
+    { key:"past", icon:"⏪", name:"Pasado", tag:"Ya pasó", color:"var(--violet)",
+      formula:'Sujeto + verbo en <b>pasado</b> (-ed o forma irregular)',
+      why:"Lo usas para algo que YA terminó. Casi todos los verbos cambian: los regulares añaden <b>-ed</b> (work → work<b>ed</b>) y los irregulares cambian solos (go → <b>went</b>).",
+      ex:[["I work<b>ed</b> yesterday.","Trabajé ayer."],
+          ["She <b>went</b> to the park.","Ella fue al parque."],
+          ["They <b>were</b> happy.","Ellos estaban felices."]] },
+    { key:"present", icon:"⏺️", name:"Presente", tag:"Pasa ahora / siempre", color:"var(--teal)",
+      formula:'Sujeto + verbo <b>(+ s con he / she / it)</b>',
+      why:"Lo usas para rutinas, hábitos y cosas que siempre son verdad. Ojo: con <b>he, she, it</b> el verbo lleva una <b>-s</b> al final (I eat → she eat<b>s</b>).",
+      ex:[["I <b>eat</b> breakfast every day.","Desayuno todos los días."],
+          ["She <b>works</b> in a hospital.","Ella trabaja en un hospital."],
+          ["We <b>are</b> friends.","Somos amigos."]] },
+    { key:"future", icon:"⏩", name:"Futuro", tag:"Pasará", color:"var(--coral)",
+      formula:'Sujeto + <b>will</b> + verbo &nbsp;(o&nbsp; <b>be going to</b> + verbo)',
+      why:"Lo usas para planes y predicciones. Lo más fácil: pon <b>will</b> antes del verbo y el verbo NO cambia. También sirve <b>be going to</b> para planes.",
+      ex:[["I <b>will</b> travel next year.","Viajaré el próximo año."],
+          ["She <b>is going to</b> study.","Ella va a estudiar."],
+          ["We <b>will</b> help you.","Te ayudaremos."]] }
+  ];
+  // Same verbs across the three times, so the change is visible
+  var CONJ = [
+    { v:"to be", es:"ser / estar", past:"was / were", present:"am / is / are", future:"will be" },
+    { v:"to have", es:"tener", past:"had", present:"have / has", future:"will have" },
+    { v:"to go", es:"ir", past:"went", present:"go / goes", future:"will go" },
+    { v:"to eat", es:"comer", past:"ate", present:"eat / eats", future:"will eat" },
+    { v:"to work", es:"trabajar", past:"worked", present:"work / works", future:"will work" },
+    { v:"to want", es:"querer", past:"wanted", present:"want / wants", future:"will want" }
+  ];
+
   /* ---------- State ---------- */
   var KEY = "ensenando-a-fabian-v1";
-  var state = { xp:0, learned:{}, streak:0, lastDay:null, quizRight:0, quizTotal:0, spoken:{} };
+  var state = { xp:0, learned:{}, streak:0, lastDay:null, quizRight:0, quizTotal:0, spoken:{}, dayLog:{} };
 
   function load(){
     try {
@@ -480,6 +777,7 @@
     } catch(e){}
     if (!state.learned || typeof state.learned !== "object") state.learned = {};
     if (!state.spoken || typeof state.spoken !== "object") state.spoken = {};
+    if (!state.dayLog || typeof state.dayLog !== "object") state.dayLog = {};
   }
   function save(){
     try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){}
@@ -562,6 +860,7 @@
     var w = deck[deckIdx % deck.length];
     var fc = $("flashcard");
     fc.classList.remove("flipped");
+    $("cardVisual").textContent = w.em;
     $("cardWord").textContent = w.en;
     $("cardIpa").textContent = w.ipa;
     $("cardSp").innerHTML = 'se lee: <b>"' + w.sp + '"</b>';
@@ -588,6 +887,8 @@
     if (!w) return;
     if (!state.learned[w.id]){
       state.learned[w.id] = true;
+      if (!state.dayLog) state.dayLog = {};
+      var d = dayStr(); state.dayLog[d] = (state.dayLog[d]||0) + 1;
       addXp(XP_PER_WORD, "¡+"+XP_PER_WORD+" XP! Aprendiste \""+w.en+"\"");
     } else {
       toast("👍 Repaso guardado");
@@ -759,6 +1060,114 @@
     }
   }
 
+  /* ---------- Grammar panel ---------- */
+  function stripTags(s){ return (s||"").replace(/<[^>]*>/g,""); }
+  function renderGrammar(){
+    var html = "";
+
+    // Intro: word order
+    html += '<div class="gr-intro">'
+      + '<h3>El orden nunca cambia 🙂</h3>'
+      + '<p>En inglés casi siempre es: <b>Sujeto → Verbo → Complemento</b>. Lo que cambia es el <b>verbo</b>, según <b>cuándo</b> pasa la acción.</p>'
+      + '<div class="gr-order"><span class="gw suj">I</span><span class="gw vrb">eat</span><span class="gw cmp">apples</span></div>'
+      + '<div class="gr-order-es">Yo · como · manzanas</div>'
+      + '</div>';
+
+    // Why verbs change
+    html += '<div class="gr-why">'
+      + '<b>¿Por qué cambia el verbo?</b> Porque el verbo lleva la información del <b>tiempo</b> (si fue ayer, es hoy o será mañana) y a veces de <b>quién</b> hace la acción. En español cambias la terminación (com<i>í</i>, com<i>o</i>, com<i>eré</i>); en inglés se hace con la forma del verbo o con palabras como <b>will</b>.'
+      + '</div>';
+
+    // Tense cards
+    html += '<div class="tense-grid">';
+    TENSES.forEach(function(t){
+      var exs = "";
+      t.ex.forEach(function(e){
+        exs += '<div class="gr-ex"><button class="gr-say" data-say="'+escHtml(stripTags(e[0]))+'" title="Escuchar">🔊</button>'
+          + '<div><div class="en">'+e[0]+'</div><div class="tr">'+e[1]+'</div></div></div>';
+      });
+      html += '<div class="tense-card" style="--tc:'+t.color+'">'
+        + '<div class="tc-head"><span class="tc-ic">'+t.icon+'</span>'
+        + '<div><b>'+t.name+'</b><span class="tc-tag">'+t.tag+'</span></div></div>'
+        + '<div class="tc-formula">'+t.formula+'</div>'
+        + '<div class="tc-why">'+t.why+'</div>'
+        + '<div class="tc-ex">'+exs+'</div>'
+        + '</div>';
+    });
+    html += '</div>';
+
+    // Conjugation table
+    var rows = "";
+    CONJ.forEach(function(c){
+      rows += '<tr><th scope="row"><b>'+c.v+'</b><span>'+c.es+'</span></th>'
+        + '<td>'+c.past+'</td><td>'+c.present+'</td><td>'+c.future+'</td></tr>';
+    });
+    html += '<div class="gr-table-wrap"><h3>El mismo verbo en los 3 tiempos</h3>'
+      + '<p class="gr-note">Mira cómo cambia una sola palabra. En presente, la 2ª forma es para <b>he / she / it</b>.</p>'
+      + '<table class="gr-table"><thead><tr><th>Verbo</th><th>⏪ Pasado</th><th>⏺️ Presente</th><th>⏩ Futuro</th></tr></thead>'
+      + '<tbody>'+rows+'</tbody></table></div>';
+
+    // Regular vs irregular
+    html += '<div class="gr-ri">'
+      + '<div class="ri-card ok"><b>✅ Verbos regulares</b><p>Son los fáciles: en pasado solo añades <b>-ed</b>.</p>'
+      + '<div class="ri-ex">work → work<b>ed</b> · play → play<b>ed</b> · learn → learn<b>ed</b></div></div>'
+      + '<div class="ri-card warn"><b>⚠️ Verbos irregulares</b><p>Cambian solos. Los más comunes hay que memorizarlos (están en la tabla de arriba).</p>'
+      + '<div class="ri-ex">go → <b>went</b> · eat → <b>ate</b> · have → <b>had</b> · is → <b>was</b></div></div>'
+      + '</div>';
+
+    $("grammarBody").innerHTML = html;
+    Array.prototype.forEach.call($("grammarBody").querySelectorAll(".gr-say"), function(b){
+      b.addEventListener("click", function(){ speak(b.getAttribute("data-say")); });
+    });
+  }
+
+  /* ---------- Sounds panel ---------- */
+  function renderSounds(){
+    var html = "";
+    SOUNDS.forEach(function(g){
+      var chips = "";
+      g.ids.forEach(function(id){
+        var w = VMAP[id]; if (!w) return;
+        chips += '<button class="sword" data-say="'+escHtml(w.en)+'">'
+          + '<span class="em">'+w.em+'</span>'+escHtml(w.en)
+          + ' <span class="rd">'+escHtml(w.sp)+'</span><span class="spk">🔊</span></button>';
+      });
+      html += '<div class="sgroup">'
+        + '<div class="sgroup-head"><div class="ic">'+g.icon+'</div>'
+        + '<div class="tt"><b>'+g.title+'</b><span class="snd">suena: '+escHtml(g.sound)+'</span></div></div>'
+        + '<div class="tip">'+g.tip+'</div>'
+        + '<div class="words">'+chips+'</div></div>';
+    });
+    $("soundGroups").innerHTML = html;
+    Array.prototype.forEach.call($("soundGroups").querySelectorAll(".sword"), function(b){
+      b.addEventListener("click", function(){ speak(b.getAttribute("data-say")); });
+    });
+  }
+
+  /* ---------- Methods panel ---------- */
+  function todayLearned(){
+    if (!state.dayLog) return 0;
+    return state.dayLog[dayStr()] || 0;
+  }
+  function renderMethods(){
+    var done = todayLearned(), pct = Math.min(100, Math.round(done/DAILY_GOAL*100));
+    var msg = done >= DAILY_GOAL
+      ? "🎉 ¡Meta del día cumplida! Cada día que vuelves, más fácil se vuelve."
+      : "Te faltan " + (DAILY_GOAL - done) + " palabra" + ((DAILY_GOAL-done)===1?"":"s") + " para tu meta de hoy. ¡Tú puedes!";
+    $("dailyGoal").innerHTML = '<div class="dg-top"><b>🎯 Meta de hoy</b>'
+      + '<span class="dg-n">'+done+' / '+DAILY_GOAL+' palabras</span></div>'
+      + '<div class="dg-track"><div class="dg-fill" style="width:'+pct+'%"></div></div>'
+      + '<div class="dg-msg">'+msg+'</div>';
+    var html = "";
+    METHODS.forEach(function(m){
+      html += '<div class="method-card"><div class="m-ic">'+m.icon+'</div>'
+        + '<b>'+m.title+'</b>'
+        + '<div class="m-what">'+m.what+'</div>'
+        + '<div class="m-how"><b>Cómo:</b> '+m.how+'</div></div>';
+    });
+    $("methodGrid").innerHTML = html;
+  }
+
   /* ---------- Levels panel ---------- */
   function renderLevels(){
     var li = levelInfo();
@@ -834,7 +1243,10 @@
   function showTab(name){
     var tabs = document.querySelectorAll('nav.tabs button');
     Array.prototype.forEach.call(tabs, function(t){ t.setAttribute("aria-selected", t.getAttribute("data-tab")===name); });
-    ["learn","quiz","levels","words"].forEach(function(p){ $("panel-"+p).hidden = (p !== name); });
+    ["learn","sounds","methods","grammar","quiz","levels","words"].forEach(function(p){ $("panel-"+p).hidden = (p !== name); });
+    if (name === "sounds") renderSounds();
+    if (name === "methods") renderMethods();
+    if (name === "grammar") renderGrammar();
     if (name === "quiz" && !quizWord) newQuiz();
     if (name === "levels") renderLevels();
     if (name === "words") { renderFilters(); renderWords(); }
@@ -950,7 +1362,7 @@
     }
     clearTimeout(resetTimer);
     try { localStorage.removeItem(KEY); } catch(e){}
-    state = { xp:0, learned:{}, streak:0, lastDay:null, quizRight:0, quizTotal:0, spoken:{} };
+    state = { xp:0, learned:{}, streak:0, lastDay:null, quizRight:0, quizTotal:0, spoken:{}, dayLog:{} };
     updateStreak();
     buildDeck(); renderDash(); renderCard(); renderLevels();
     quizWord=null; renderFilters(); renderWords();
