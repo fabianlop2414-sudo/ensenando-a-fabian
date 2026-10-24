@@ -334,6 +334,35 @@
   .ri-card.warn { background: color-mix(in srgb, var(--gold) 14%, var(--surface)); }
   .ri-card.warn .ri-ex b { color: var(--coral-deep); }
 
+  /* Grammar section headings + lessons by level */
+  .gr-section-h { font-size: 19px; margin: 22px 0 12px; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .gr-section-h span { font-family: var(--body); font-weight: 600; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-soft); }
+  .lesson-list { display: grid; gap: 14px; }
+  .lesson-card { background: var(--surface); border: 1px solid var(--line); border-left: 5px solid var(--tc); border-radius: 18px; padding: 16px 18px; box-shadow: var(--shadow-sm); }
+  .lesson-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .lesson-badge { font-family: var(--num); font-weight: 700; font-size: 11.5px; color: #fff; background: var(--tc); padding: 3px 10px; border-radius: 999px; }
+  .lesson-ic { font-size: 22px; }
+  .lesson-head b { font-family: var(--display); font-weight: 600; font-size: 17px; letter-spacing: -.01em; flex: 1; min-width: 140px; }
+  .lesson-intro { font-size: 13.5px; color: var(--ink-soft); margin-top: 10px; line-height: 1.5; }
+  .lesson-intro b { color: var(--ink); }
+  .lesson-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13.5px; }
+  .lesson-table td { padding: 8px 10px; border-bottom: 1px solid var(--line); }
+  .lesson-table tr:last-child td { border-bottom: none; }
+  .lesson-table .who { color: var(--ink-soft); width: 40%; }
+  .lesson-table .form { font-family: var(--num); font-weight: 700; color: var(--tc); width: 24%; }
+  .lesson-table .mean { color: var(--ink-soft); font-size: 12.5px; font-style: italic; }
+  .lesson-note { margin-top: 12px; background: var(--surface-2); border: 1px dashed var(--line); border-radius: 12px; padding: 11px 13px; font-size: 12.5px; line-height: 1.6; }
+  .lesson-note b { color: var(--tc); }
+  .lesson-note s { opacity: .55; }
+  .lesson-ex { margin-top: 12px; display: grid; gap: 8px; }
+
+  /* Word filters grouped by level and area */
+  .filter-row { display: block; }
+  .filter-group { margin-bottom: 12px; }
+  .filter-label { display: block; font-size: 11.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 7px; }
+  .filter-group .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .wmeta { font-size: 11px; margin-top: 6px; opacity: .7; }
+
   @media (prefers-reduced-motion: reduce){ *{ transition:none !important; animation:none !important; } }
   :focus-visible { outline: 3px solid var(--coral); outline-offset: 2px; border-radius: 6px; }
 </style>
@@ -670,7 +699,63 @@
     {id:"overcome", en:"Overcome", es:"Superar", ipa:"/ˌoʊvərˈkʌm/", sp:"ouverkóm", cat:"Metas", em:"🧗", lvl:"B2", ex:"You can overcome fear.", exEs:"Puedes superar el miedo."},
     {id:"insight", en:"Insight", es:"Perspectiva / Visión", ipa:"/ˈɪnsaɪt/", sp:"ínsait", cat:"Conversación", em:"🔭", lvl:"B2", ex:"Thanks for the insight.", exEs:"Gracias por la perspectiva."},
     {id:"thorough", en:"Thorough", es:"Minucioso", ipa:"/ˈθɜːroʊ/", sp:"zórou", cat:"Cualidades", em:"🔬", lvl:"B2", ex:"She is very thorough.", exEs:"Ella es muy minuciosa."},
-    {id:"regarding", en:"Regarding", es:"Respecto a", ipa:"/rɪˈɡɑːrdɪŋ/", sp:"rigárding", cat:"Conectores", em:"📌", lvl:"B2", ex:"Regarding your email, yes.", exEs:"Respecto a tu correo, sí."}
+    {id:"regarding", en:"Regarding", es:"Respecto a", ipa:"/rɪˈɡɑːrdɪŋ/", sp:"rigárding", cat:"Conectores", em:"📌", lvl:"B2", ex:"Regarding your email, yes.", exEs:"Respecto a tu correo, sí."},
+
+    // Números
+    {id:"one", en:"One", es:"Uno", ipa:"/wʌn/", sp:"uán", cat:"Números", em:"1️⃣", lvl:"A1", ex:"I have one brother.", exEs:"Tengo un hermano."},
+    {id:"two", en:"Two", es:"Dos", ipa:"/tuː/", sp:"túu", cat:"Números", em:"2️⃣", lvl:"A1", ex:"Two coffees, please.", exEs:"Dos cafés, por favor."},
+    {id:"three", en:"Three", es:"Tres", ipa:"/θriː/", sp:"zríi", cat:"Números", em:"3️⃣", lvl:"A1", ex:"I see three birds.", exEs:"Veo tres pájaros."},
+    {id:"four", en:"Four", es:"Cuatro", ipa:"/fɔːr/", sp:"fóor", cat:"Números", em:"4️⃣", lvl:"A1", ex:"We are four people.", exEs:"Somos cuatro personas."},
+    {id:"five", en:"Five", es:"Cinco", ipa:"/faɪv/", sp:"fáiv", cat:"Números", em:"5️⃣", lvl:"A1", ex:"Give me five minutes.", exEs:"Dame cinco minutos."},
+    {id:"ten", en:"Ten", es:"Diez", ipa:"/ten/", sp:"ten", cat:"Números", em:"🔟", lvl:"A1", ex:"I have ten dollars.", exEs:"Tengo diez dólares."},
+
+    // Cuerpo
+    {id:"head", en:"Head", es:"Cabeza", ipa:"/hed/", sp:"jed", cat:"Cuerpo", em:"🧑", lvl:"A1", ex:"My head hurts.", exEs:"Me duele la cabeza."},
+    {id:"hand", en:"Hand", es:"Mano", ipa:"/hænd/", sp:"jand", cat:"Cuerpo", em:"✋", lvl:"A1", ex:"Raise your hand.", exEs:"Levanta la mano."},
+    {id:"eye", en:"Eye", es:"Ojo", ipa:"/aɪ/", sp:"ái", cat:"Cuerpo", em:"👁️", lvl:"A1", ex:"Close your eyes.", exEs:"Cierra los ojos."},
+    {id:"foot", en:"Foot", es:"Pie", ipa:"/fʊt/", sp:"fut", cat:"Cuerpo", em:"🦶", lvl:"A1", ex:"My foot is cold.", exEs:"Tengo el pie frío."},
+    {id:"hair", en:"Hair", es:"Cabello", ipa:"/her/", sp:"jéer", cat:"Cuerpo", em:"💇", lvl:"A1", ex:"She has long hair.", exEs:"Ella tiene el cabello largo."},
+    {id:"mouth", en:"Mouth", es:"Boca", ipa:"/maʊθ/", sp:"máuz", cat:"Cuerpo", em:"👄", lvl:"A1", ex:"Open your mouth.", exEs:"Abre la boca."},
+
+    // Comida (más)
+    {id:"bread", en:"Bread", es:"Pan", ipa:"/bred/", sp:"bred", cat:"Comida", em:"🍞", lvl:"A1", ex:"I want some bread.", exEs:"Quiero un poco de pan."},
+    {id:"apple", en:"Apple", es:"Manzana", ipa:"/ˈæpəl/", sp:"ápol", cat:"Comida", em:"🍎", lvl:"A1", ex:"An apple a day.", exEs:"Una manzana al día."},
+    {id:"coffee", en:"Coffee", es:"Café", ipa:"/ˈkɔːfi/", sp:"kófi", cat:"Comida", em:"☕", lvl:"A1", ex:"I drink coffee.", exEs:"Tomo café."},
+    {id:"milk", en:"Milk", es:"Leche", ipa:"/mɪlk/", sp:"milk", cat:"Comida", em:"🥛", lvl:"A1", ex:"The milk is cold.", exEs:"La leche está fría."},
+    {id:"rice", en:"Rice", es:"Arroz", ipa:"/raɪs/", sp:"ráis", cat:"Comida", em:"🍚", lvl:"A2", ex:"I like rice.", exEs:"Me gusta el arroz."},
+    {id:"egg", en:"Egg", es:"Huevo", ipa:"/eɡ/", sp:"eg", cat:"Comida", em:"🥚", lvl:"A1", ex:"One egg, please.", exEs:"Un huevo, por favor."},
+    {id:"chicken", en:"Chicken", es:"Pollo", ipa:"/ˈtʃɪkɪn/", sp:"chíken", cat:"Comida", em:"🍗", lvl:"A2", ex:"We eat chicken.", exEs:"Comemos pollo."},
+
+    // Ropa
+    {id:"shirt", en:"Shirt", es:"Camisa", ipa:"/ʃɜːrt/", sp:"shert", cat:"Ropa", em:"👕", lvl:"A2", ex:"I like your shirt.", exEs:"Me gusta tu camisa."},
+    {id:"shoes", en:"Shoes", es:"Zapatos", ipa:"/ʃuːz/", sp:"shúus", cat:"Ropa", em:"👟", lvl:"A2", ex:"New shoes!", exEs:"¡Zapatos nuevos!"},
+    {id:"pants", en:"Pants", es:"Pantalones", ipa:"/pænts/", sp:"pants", cat:"Ropa", em:"👖", lvl:"A2", ex:"These pants are blue.", exEs:"Estos pantalones son azules."},
+    {id:"hat", en:"Hat", es:"Sombrero", ipa:"/hæt/", sp:"jat", cat:"Ropa", em:"🧢", lvl:"A2", ex:"He wears a hat.", exEs:"Él usa sombrero."},
+    {id:"jacket", en:"Jacket", es:"Chaqueta", ipa:"/ˈdʒækɪt/", sp:"yáket", cat:"Ropa", em:"🧥", lvl:"A2", ex:"Take your jacket.", exEs:"Lleva tu chaqueta."},
+
+    // Lugares (más)
+    {id:"store", en:"Store", es:"Tienda", ipa:"/stɔːr/", sp:"stóor", cat:"Lugares", em:"🏪", lvl:"A2", ex:"I go to the store.", exEs:"Voy a la tienda."},
+    {id:"hospital", en:"Hospital", es:"Hospital", ipa:"/ˈhɑːspɪtl/", sp:"jóspital", cat:"Lugares", em:"🏥", lvl:"A2", ex:"She works in a hospital.", exEs:"Ella trabaja en un hospital."},
+    {id:"street", en:"Street", es:"Calle", ipa:"/striːt/", sp:"striit", cat:"Lugares", em:"🛣️", lvl:"A2", ex:"Cross the street.", exEs:"Cruza la calle."},
+    {id:"park", en:"Park", es:"Parque", ipa:"/pɑːrk/", sp:"park", cat:"Lugares", em:"🏞️", lvl:"A1", ex:"Let's go to the park.", exEs:"Vamos al parque."},
+    {id:"airport", en:"Airport", es:"Aeropuerto", ipa:"/ˈerpɔːrt/", sp:"érport", cat:"Lugares", em:"🛫", lvl:"A2", ex:"The airport is far.", exEs:"El aeropuerto está lejos."},
+    {id:"restaurant", en:"Restaurant", es:"Restaurante", ipa:"/ˈrestrɑːnt/", sp:"réstorant", cat:"Lugares", em:"🍴", lvl:"A2", ex:"A nice restaurant.", exEs:"Un restaurante agradable."},
+
+    // Preguntas
+    {id:"what", en:"What", es:"Qué", ipa:"/wʌt/", sp:"uót", cat:"Preguntas", em:"❓", lvl:"A1", ex:"What is this?", exEs:"¿Qué es esto?"},
+    {id:"where", en:"Where", es:"Dónde", ipa:"/wer/", sp:"uér", cat:"Preguntas", em:"📍", lvl:"A1", ex:"Where are you?", exEs:"¿Dónde estás?"},
+    {id:"when", en:"When", es:"Cuándo", ipa:"/wen/", sp:"uén", cat:"Preguntas", em:"🕐", lvl:"A2", ex:"When is the party?", exEs:"¿Cuándo es la fiesta?"},
+    {id:"who", en:"Who", es:"Quién", ipa:"/huː/", sp:"júu", cat:"Preguntas", em:"🧍", lvl:"A2", ex:"Who is she?", exEs:"¿Quién es ella?"},
+    {id:"why", en:"Why", es:"Por qué", ipa:"/waɪ/", sp:"uái", cat:"Preguntas", em:"🤔", lvl:"A2", ex:"Why not?", exEs:"¿Por qué no?"},
+    {id:"how", en:"How", es:"Cómo", ipa:"/haʊ/", sp:"jáu", cat:"Preguntas", em:"🔧", lvl:"A1", ex:"How are you?", exEs:"¿Cómo estás?"},
+
+    // Verbos (más)
+    {id:"play", en:"Play", es:"Jugar", ipa:"/pleɪ/", sp:"pléi", cat:"Verbos", em:"⚽", lvl:"A2", ex:"Kids play outside.", exEs:"Los niños juegan afuera."},
+    {id:"run", en:"Run", es:"Correr", ipa:"/rʌn/", sp:"ron", cat:"Verbos", em:"🏃", lvl:"A2", ex:"I run every morning.", exEs:"Corro cada mañana."},
+    {id:"sleep", en:"Sleep", es:"Dormir", ipa:"/sliːp/", sp:"slíip", cat:"Verbos", em:"😴", lvl:"A2", ex:"I sleep eight hours.", exEs:"Duermo ocho horas."},
+    {id:"walk", en:"Walk", es:"Caminar", ipa:"/wɔːk/", sp:"uók", cat:"Verbos", em:"🚶", lvl:"A2", ex:"We walk to school.", exEs:"Caminamos a la escuela."},
+    {id:"call", en:"Call", es:"Llamar", ipa:"/kɔːl/", sp:"kol", cat:"Verbos", em:"📞", lvl:"A2", ex:"Call me later.", exEs:"Llámame más tarde."},
+    {id:"start", en:"Start", es:"Empezar", ipa:"/stɑːrt/", sp:"start", cat:"Verbos", em:"🚦", lvl:"A2", ex:"Let's start now.", exEs:"Empecemos ahora."}
   ];
 
   var LEVELS = [
@@ -764,6 +849,26 @@
     { v:"to eat", es:"comer", past:"ate", present:"eat / eats", future:"will eat" },
     { v:"to work", es:"trabajar", past:"worked", present:"work / works", future:"will work" },
     { v:"to want", es:"querer", past:"wanted", present:"want / wants", future:"will want" }
+  ];
+
+  /* ---------- Grammar lessons by level (easy → hard) ---------- */
+  var LESSONS = [
+    { lvl:1, icon:"🧱", color:"var(--teal)", title:'El verbo "to be" — am / is / are',
+      intro:'"To be" significa <b>ser</b> o <b>estar</b>. Cambia según quién habla: elige <b>am</b>, <b>is</b> o <b>are</b>.',
+      rows:[["I","am","yo soy / estoy"],["You","are","tú eres / estás"],["He / She / It","is","él / ella es / está"],["We / You / They","are","nosotros / ellos son / están"]],
+      ex:[["I am happy.","Estoy feliz."],["She is a teacher.","Ella es maestra."],["We are friends.","Somos amigos."]] },
+    { lvl:2, icon:"⏪", color:"var(--violet)", title:'"Was" y "Were" — el pasado de "to be"',
+      intro:'Es <b>era / fue / estaba</b>. Usa <b>was</b> con I, he, she, it; y <b>were</b> con you, we, they.',
+      rows:[["I","was","yo era / estaba"],["You","were","tú eras / estabas"],["He / She / It","was","él / ella era / estaba"],["We / You / They","were","nosotros / ellos eran / estaban"]],
+      ex:[["I was tired.","Yo estaba cansado."],["They were at home.","Ellos estaban en casa."],["She was happy.","Ella estaba feliz."]] },
+    { lvl:3, icon:"🤲", color:"var(--gold)", title:'"Have" y "Has" — tener',
+      intro:'Significa <b>tener</b>. Usa <b>have</b> con casi todos, pero <b>has</b> solo con <b>he, she, it</b>.',
+      rows:[["I","have","yo tengo"],["You","have","tú tienes"],["He / She / It","has","él / ella tiene"],["We / You / They","have","nosotros / ellos tienen"]],
+      ex:[["I have a car.","Tengo un coche."],["She has two cats.","Ella tiene dos gatos."],["We have time.","Tenemos tiempo."]] },
+    { lvl:4, icon:"🏃", color:"var(--coral)", title:'Palabras con "-ing" — estar haciendo algo',
+      intro:'Para algo que pasa <b>ahora mismo</b>: <b>am / is / are + verbo+ing</b>. Es el <b>-ando / -iendo</b> (comiendo, corriendo).',
+      note:'Cómo formar el -ing: &nbsp;①&nbsp; normal → eat → eat<b>ing</b> &nbsp;·&nbsp; ②&nbsp; termina en -e → mak<s>e</s> → mak<b>ing</b> &nbsp;·&nbsp; ③&nbsp; vocal + consonante corta → run → run<b>ning</b> (se dobla).',
+      ex:[["I am eating.","Estoy comiendo."],["She is working.","Ella está trabajando."],["They are playing.","Ellos están jugando."]] }
   ];
 
   /* ---------- State ---------- */
@@ -1078,7 +1183,36 @@
       + '<b>¿Por qué cambia el verbo?</b> Porque el verbo lleva la información del <b>tiempo</b> (si fue ayer, es hoy o será mañana) y a veces de <b>quién</b> hace la acción. En español cambias la terminación (com<i>í</i>, com<i>o</i>, com<i>eré</i>); en inglés se hace con la forma del verbo o con palabras como <b>will</b>.'
       + '</div>';
 
+    // Lessons by level (easy -> hard)
+    html += '<h3 class="gr-section-h">📚 Lecciones por nivel <span>de fácil a difícil</span></h3>';
+    html += '<div class="lesson-list">';
+    LESSONS.forEach(function(L){
+      var inner = "";
+      if (L.rows){
+        var tr = "";
+        L.rows.forEach(function(r){
+          tr += '<tr><td class="who">'+r[0]+'</td><td class="form">'+r[1]+'</td><td class="mean">'+r[2]+'</td></tr>';
+        });
+        inner += '<table class="lesson-table"><tbody>'+tr+'</tbody></table>';
+      }
+      if (L.note) inner += '<div class="lesson-note">'+L.note+'</div>';
+      var exs = "";
+      L.ex.forEach(function(e){
+        exs += '<div class="gr-ex"><button class="gr-say" data-say="'+escHtml(stripTags(e[0]))+'" title="Escuchar">🔊</button>'
+          + '<div><div class="en">'+e[0]+'</div><div class="tr">'+e[1]+'</div></div></div>';
+      });
+      html += '<div class="lesson-card" style="--tc:'+L.color+'">'
+        + '<div class="lesson-head"><span class="lesson-badge">Nivel '+L.lvl+'</span>'
+        + '<span class="lesson-ic">'+L.icon+'</span><b>'+L.title+'</b></div>'
+        + '<div class="lesson-intro">'+L.intro+'</div>'
+        + inner
+        + '<div class="lesson-ex">'+exs+'</div>'
+        + '</div>';
+    });
+    html += '</div>';
+
     // Tense cards
+    html += '<h3 class="gr-section-h">⏳ Los 3 tiempos de un vistazo</h3>';
     html += '<div class="tense-grid">';
     TENSES.forEach(function(t){
       var exs = "";
@@ -1198,30 +1332,51 @@
   }
 
   /* ---------- Words panel ---------- */
-  var wordFilter = "all";
+  var wordFilter = "all", wordCat = "all";
+  function allCats(){
+    var seen = {}, out = [];
+    VOCAB.forEach(function(w){ if (!seen[w.cat]){ seen[w.cat]=true; out.push(w.cat); } });
+    out.sort(function(a,b){ return a.localeCompare(b, "es"); });
+    return out;
+  }
+  function catEmoji(cat){
+    for (var i=0;i<VOCAB.length;i++){ if (VOCAB[i].cat===cat) return VOCAB[i].em; }
+    return "🔖";
+  }
   function renderFilters(){
     var levelsSet = ["all","A1","A2","B1","B2","learned"];
     var labels = {all:"Todas", A1:"Nivel A1", A2:"Nivel A2", B1:"Nivel B1", B2:"Nivel B2", learned:"✓ Aprendidas"};
-    var html = "";
+    var html = '<div class="filter-group"><span class="filter-label">Por nivel</span><div class="chips">';
     levelsSet.forEach(function(f){
-      html += '<button class="chip" data-f="'+f+'" aria-pressed="'+(wordFilter===f)+'">'+labels[f]+'</button>';
+      html += '<button class="chip" data-type="lvl" data-f="'+f+'" aria-pressed="'+(wordFilter===f)+'">'+labels[f]+'</button>';
     });
+    html += '</div></div>';
+    html += '<div class="filter-group"><span class="filter-label">Por área</span><div class="chips">';
+    html += '<button class="chip" data-type="cat" data-f="all" aria-pressed="'+(wordCat==="all")+'">Todas</button>';
+    allCats().forEach(function(c){
+      html += '<button class="chip" data-type="cat" data-f="'+c+'" aria-pressed="'+(wordCat===c)+'">'+catEmoji(c)+' '+c+'</button>';
+    });
+    html += '</div></div>';
     $("filterRow").innerHTML = html;
     Array.prototype.forEach.call($("filterRow").querySelectorAll(".chip"), function(c){
-      c.addEventListener("click", function(){ wordFilter = c.getAttribute("data-f"); renderFilters(); renderWords(); });
+      c.addEventListener("click", function(){
+        if (c.getAttribute("data-type")==="cat") wordCat = c.getAttribute("data-f");
+        else wordFilter = c.getAttribute("data-f");
+        renderFilters(); renderWords();
+      });
     });
   }
   function renderWords(){
     var li = levelInfo();
     var allowed = { "A1":true, "A2":true }; if (li.cur.n>=2) allowed["B1"]=true; if (li.cur.n>=4) allowed["B2"]=true;
     var list = VOCAB.filter(function(w){
-      if (wordFilter === "all") return true;
-      if (wordFilter === "learned") return state.learned[w.id];
-      return w.lvl === wordFilter;
+      var okLvl = (wordFilter==="all") ? true : (wordFilter==="learned" ? !!state.learned[w.id] : w.lvl===wordFilter);
+      var okCat = (wordCat==="all") ? true : w.cat===wordCat;
+      return okLvl && okCat;
     });
     $("wordsCount").textContent = "Has aprendido " + learnedCount() + " de " + VOCAB.length + " palabras en total.";
     if (!list.length){
-      $("wordGrid").innerHTML = '<div class="empty" style="grid-column:1/-1"><div class="big">📭</div>Aún no hay palabras aquí. ¡Ve a Aprender!</div>';
+      $("wordGrid").innerHTML = '<div class="empty" style="grid-column:1/-1"><div class="big">📭</div>No hay palabras con ese filtro. Prueba con otro.</div>';
       return;
     }
     var html = "";
@@ -1233,7 +1388,7 @@
         + '<div class="em">'+w.em+'</div>'
         + '<div class="en">'+w.en+'</div>'
         + '<div class="es">'+w.es+'</div>'
-        + '<div class="es" style="font-size:11px;margin-top:6px;opacity:.7">'+w.lvl+(unlocked?'':' · 🔒')+'</div>'
+        + '<div class="wmeta">'+w.em+' '+w.cat+' · '+w.lvl+(unlocked?'':' 🔒')+'</div>'
         + '</div>';
     });
     $("wordGrid").innerHTML = html;
